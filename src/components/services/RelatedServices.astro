@@ -1,0 +1,72 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  relatedSlugs: string[];
+  allServices: CollectionEntry<"services">[];
+}
+
+const { relatedSlugs, allServices } = Astro.props;
+
+const related = relatedSlugs
+  .map((slug) => allServices.find((s) => s.id === slug))
+  .filter((s): s is CollectionEntry<"services"> => Boolean(s));
+---
+
+{
+  related.length > 0 && (
+    <div class="related-services">
+      <h4>Related services</h4>
+      <ul>
+        {related.map((service) => (
+          <li>
+            <a href={`/technology-services#${service.id}`}>{service.data.title}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+<style>
+  .related-services {
+    margin-top: var(--space-5);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--silver);
+  }
+
+  .related-services h4 {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .related-services ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+
+  .related-services a {
+    display: inline-block;
+    padding: var(--space-2) var(--space-3);
+    background: var(--silver-soft);
+    border-radius: var(--radius-sm);
+    color: var(--navy);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    transition: background-color var(--motion-fast) var(--motion-ease);
+  }
+
+  .related-services a:hover,
+  .related-services a:focus-visible {
+    /* navy-on-sky (7.25:1) rather than white-on-sky (2.28:1, fails AA) */
+    background: var(--sky);
+    color: var(--navy);
+  }
+</style>

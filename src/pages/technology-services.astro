@@ -1,0 +1,124 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ServiceAccordion from "../components/services/ServiceAccordion.astro";
+
+const services = (await getCollection("services")).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<BaseLayout
+  title="Technology & Services"
+  description="SAP S/4HANA, SuccessFactors, public finance management, training, support, business advisory, project management, change management, and quality assurance — from DizTech."
+>
+  <section class="tech-hero section section--navy">
+    <div class="container">
+      <p class="eyebrow">Technology &amp; services</p>
+      <h1>Technology built for Africa's most serious institutions</h1>
+      <p class="tech-hero__intro">
+        From SAP implementation to business advisory, we deliver the full depth of
+        ERP transformation, backed by two decades of senior advisory experience.
+      </p>
+    </div>
+  </section>
+
+  <nav class="service-nav" aria-label="Jump to a service">
+    <ul class="service-nav__list">
+      {
+        services.map((service) => (
+          <li>
+            <a href={`#${service.id}`}>{service.data.title}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  <div class="container tech-services__list">
+    {
+      services.map((service, index) => (
+        <ServiceAccordion service={service} allServices={services} index={index} />
+      ))
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .tech-hero h1 {
+    font-size: var(--text-3xl);
+    color: var(--white);
+    max-width: 24ch;
+    margin-top: var(--space-3);
+  }
+
+  .tech-hero__intro {
+    margin-top: var(--space-4);
+    color: var(--silver);
+    font-size: var(--text-md);
+    max-width: 50ch;
+  }
+
+  @media (min-width: 768px) {
+    .tech-hero h1 {
+      font-size: var(--text-4xl);
+    }
+  }
+
+  .service-nav {
+    position: sticky;
+    /* Must match the site header's actual rendered height, which differs by
+       breakpoint (mobile header has no CTA button, so it's shorter) —
+       otherwise the nav sticks partly underneath the header on one size. */
+    top: 74px; /* mobile header, measured ~73px */
+    z-index: 40;
+    background: var(--white);
+    border-bottom: 1px solid var(--silver);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .service-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .service-nav__list {
+    display: flex;
+    gap: var(--space-2);
+    list-style: none;
+    padding: var(--space-3) var(--space-4);
+    max-width: var(--max-width);
+    margin-inline: auto;
+    width: max-content;
+    min-width: 100%;
+  }
+
+  .service-nav__list a {
+    display: inline-block;
+    padding: var(--space-2) var(--space-3);
+    border-radius: 999px;
+    background: var(--silver-soft);
+    color: var(--navy);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background-color var(--motion-fast) var(--motion-ease);
+  }
+
+  .service-nav__list a:hover,
+  .service-nav__list a:focus-visible {
+    background: var(--sky);
+  }
+
+  @media (min-width: 1024px) {
+    .service-nav {
+      /* Desktop header is taller (it also shows the nav links + CTA button). */
+      top: 89px;
+    }
+
+    .service-nav__list {
+      padding-inline: var(--space-6);
+    }
+  }
+</style>

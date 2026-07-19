@@ -1,0 +1,247 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+site_url: https://diztech.co.zw
+display_url: https://diztech.co.zw
+
+collections:
+  - name: "home"
+    label: "Home page"
+    files:
+      - name: "hero"
+        label: "Hero"
+        file: "content/home/hero.md"
+        fields:
+          - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+          - { label: "Headline", name: "headline", widget: "string" }
+          - { label: "Subheadline", name: "subheadline", widget: "text" }
+          - { label: "Primary CTA text", name: "ctaText", widget: "string", default: "Schedule a Consultation" }
+          - { label: "Primary CTA link", name: "ctaHref", widget: "string", default: "/#contact" }
+          - { label: "Secondary CTA text", name: "secondaryCtaText", widget: "string" }
+          - { label: "Secondary CTA link", name: "secondaryCtaHref", widget: "string" }
+          - { label: "Background image", name: "image", widget: "image" }
+          - { label: "Image alt text", name: "imageAlt", widget: "string" }
+
+      - name: "about"
+        label: "About"
+        file: "content/home/about.md"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Body", name: "body", widget: "text" }
+          - { label: "Vision heading", name: "visionHeading", widget: "string" }
+          - { label: "Vision statement", name: "vision", widget: "text" }
+          - { label: "Image", name: "image", widget: "image" }
+          - { label: "Image alt text", name: "imageAlt", widget: "string" }
+
+      - name: "values"
+        label: "Values"
+        file: "content/home/values.md"
+        fields:
+          - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+          - { label: "Heading", name: "heading", widget: "string" }
+          - label: "Values"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Icon", name: "icon", widget: "string", hint: "shield, handshake, book, or target" }
+
+      - name: "fast-facts"
+        label: "Fast facts"
+        file: "content/home/fast-facts.md"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - label: "Cards"
+            name: "cards"
+            widget: "list"
+            min: 5
+            max: 5
+            fields:
+              - { label: "Front label", name: "front", widget: "string" }
+              - { label: "Back detail", name: "back", widget: "text" }
+              - { label: "Icon", name: "icon", widget: "string", hint: "clock, award, grid, globe, or compass" }
+
+      - name: "careers"
+        label: "Careers"
+        file: "content/home/careers.md"
+        fields:
+          - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Subtext", name: "subtext", widget: "text" }
+          - { label: "CTA text", name: "ctaText", widget: "string" }
+          - { label: "CTA link", name: "ctaHref", widget: "string" }
+          - label: "Why work with us"
+            name: "whyWorkWithUs"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+          - label: "Current openings"
+            name: "openings"
+            widget: "list"
+            fields:
+              - { label: "Role title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+          - { label: "How to apply", name: "howToApply", widget: "text" }
+          - { label: "Closing line", name: "closingLine", widget: "string" }
+
+      - name: "contact"
+        label: "Contact"
+        file: "content/home/contact.md"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Intro", name: "intro", widget: "text" }
+          - label: "Service interest options"
+            name: "serviceOptions"
+            widget: "list"
+          - { label: "Locations heading", name: "locationsHeading", widget: "string" }
+          - label: "Locations"
+            name: "locations"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Address", name: "address", widget: "string" }
+              - { label: "Phone", name: "phone", widget: "string" }
+          - { label: "Closing line", name: "closingLine", widget: "string" }
+          - { label: "Privacy note", name: "privacyNote", widget: "text" }
+
+      - name: "industries"
+        label: "Industries we serve"
+        file: "content/home/industries.md"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - label: "Industries"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Icon", name: "icon", widget: "string" }
+
+  - name: "services"
+    label: "Services"
+    folder: "content/services"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Icon", name: "icon", widget: "string" }
+      - { label: "Nav order", name: "order", widget: "number" }
+      - { label: "Teaser summary", name: "summary", widget: "text" }
+      - label: "Service overview"
+        name: "overview"
+        widget: "object"
+        fields:
+          - { label: "Summary", name: "summary", widget: "text" }
+          - { label: "Full detail", name: "body", widget: "text" }
+      - label: "Business challenges we solve"
+        name: "challenges"
+        widget: "object"
+        fields:
+          - { label: "Summary", name: "summary", widget: "text" }
+          - { label: "Full detail", name: "body", widget: "text" }
+      - label: "Our approach"
+        name: "approach"
+        widget: "object"
+        fields:
+          - { label: "Summary", name: "summary", widget: "text" }
+          - { label: "Full detail", name: "body", widget: "text" }
+      - label: "Key features / capabilities"
+        name: "features"
+        widget: "list"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Description", name: "description", widget: "string" }
+      - label: "Benefits to your organisation"
+        name: "benefits"
+        widget: "object"
+        fields:
+          - { label: "Summary", name: "summary", widget: "text" }
+          - { label: "Full detail", name: "body", widget: "text" }
+      - label: "Why choose DizTech"
+        name: "whyChooseUs"
+        widget: "list"
+        min: 3
+        max: 4
+        fields:
+          - { label: "Icon", name: "icon", widget: "string" }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Text", name: "text", widget: "text" }
+      - label: "Related services"
+        name: "relatedServices"
+        widget: "relation"
+        collection: "services"
+        search_fields: ["title"]
+        value_field: "{{slug}}"
+        display_fields: ["title"]
+        multiple: true
+        required: false
+      - label: "Call to action"
+        name: "cta"
+        widget: "object"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Button text", name: "buttonText", widget: "string", default: "Schedule a Consultation" }
+          - { label: "Button link", name: "buttonHref", widget: "string", default: "/#contact" }
+
+  - name: "insights"
+    label: "Insights / Blog"
+    folder: "content/insights"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - "SAP"
+          - "S/4HANA"
+          - "SuccessFactors"
+          - "Public Finance"
+          - "Digital Transformation"
+          - "ERP Implementation"
+          - "Project Management"
+          - "Change Management"
+          - "Business Advisory"
+      - { label: "Publish date", name: "date", widget: "datetime" }
+      - { label: "Excerpt", name: "excerpt", widget: "text" }
+      - { label: "Featured image", name: "image", widget: "image" }
+      - { label: "Show as featured article?", name: "featured", widget: "boolean", default: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "site-data"
+    label: "Global data"
+    files:
+      - name: "africa-presence"
+        label: "Africa presence map"
+        file: "content/data/africa-presence.yml"
+        fields:
+          - label: "Presence"
+            name: "presence"
+            widget: "list"
+            fields:
+              - { label: "ID (unique, no spaces)", name: "id", widget: "string" }
+              - { label: "Country", name: "country", widget: "string" }
+              - { label: "City", name: "city", widget: "string" }
+              - { label: "Marker label", name: "label", widget: "string" }
+              - { label: "Latitude", name: "lat", widget: "number", value_type: "float" }
+              - { label: "Longitude", name: "lng", widget: "number", value_type: "float" }
+              - { label: "Is head office?", name: "isHQ", widget: "boolean", default: false }
+
+      - name: "site-settings"
+        label: "Site settings"
+        file: "content/data/site-settings.yml"
+        fields:
+          - label: "Settings"
+            name: "settings"
+            widget: "object"
+            fields:
+              - { label: "ID", name: "id", widget: "hidden", default: "main" }
+              - { label: "Wordmark", name: "wordmark", widget: "string" }
+              - { label: "Tagline", name: "tagline", widget: "string" }

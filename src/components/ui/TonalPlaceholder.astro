@@ -1,0 +1,60 @@
+---
+// A CSS-only tonal placeholder standing in for photography that couldn't be generated
+// (Gemini image API quota was unavailable at build time). Swap for a real <img> once
+// the client supplies photography or image generation is available — the `image` field
+// in each content file is already wired for that.
+interface Props {
+  alt: string;
+  variant?: "navy" | "abyssal" | "sky";
+  class?: string;
+}
+
+const { alt, variant = "navy", class: className = "" } = Astro.props;
+---
+
+<div class={`tonal-placeholder tonal-placeholder--${variant} ${className}`} role="img" aria-label={alt}>
+  <svg class="tonal-placeholder__texture" viewBox="0 0 400 400" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id={`grad-${variant}`} x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="currentColor" stop-opacity="0.9" />
+        <stop offset="100%" stop-color="currentColor" stop-opacity="0.5" />
+      </linearGradient>
+    </defs>
+    <rect width="400" height="400" fill={`url(#grad-${variant})`} />
+    <path d="M0 260 Q120 200 220 260 T400 240" stroke="rgba(255,255,255,0.12)" stroke-width="2" fill="none" />
+    <path d="M0 320 Q140 270 260 320 T400 300" stroke="rgba(255,255,255,0.08)" stroke-width="2" fill="none" />
+  </svg>
+</div>
+
+<style>
+  .tonal-placeholder {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 240px;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+  }
+
+  .tonal-placeholder--navy {
+    color: var(--navy);
+    background: var(--navy);
+  }
+
+  .tonal-placeholder--abyssal {
+    color: var(--abyssal);
+    background: var(--abyssal);
+  }
+
+  .tonal-placeholder--sky {
+    color: #036f92;
+    background: #036f92;
+  }
+
+  .tonal-placeholder__texture {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>

@@ -1,0 +1,137 @@
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sky-text);
+}
+
+/* On navy backgrounds the darkened text-safe sky reads muddy, and the vivid --sky
+   already clears AA against navy (7.25:1), so use it there instead. */
+.section--navy .eyebrow {
+  color: var(--sky);
+}
+
+.section {
+  padding-block: var(--space-8);
+}
+
+.section--navy {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.section--wash {
+  background: var(--silver-soft);
+}
+
+.section-heading {
+  max-width: 46ch;
+  margin-bottom: var(--space-6);
+}
+
+.section-heading h2 {
+  font-size: var(--text-3xl);
+}
+
+.section-heading p {
+  margin-top: var(--space-3);
+  font-size: var(--text-md);
+  color: var(--charcoal);
+}
+
+.section--navy .section-heading p {
+  color: var(--silver);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  /* Padding scales with the label — width is never fixed, so the button is
+     always as wide as its text needs, per standard responsive button sizing. */
+  padding: var(--space-3) var(--space-5);
+  min-height: 44px; /* WCAG 2.5.5 / Apple HIG touch-target minimum */
+  border-radius: var(--radius-btn);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  text-decoration: none;
+  transition: transform var(--motion-fast) var(--motion-ease), background-color var(--motion-fast) var(--motion-ease);
+}
+
+.btn:hover,
+.btn:focus-visible {
+  transform: translateY(-2px);
+}
+
+.btn--primary {
+  background: var(--sky);
+  color: var(--navy);
+}
+
+.btn--primary:hover,
+.btn--primary:focus-visible {
+  background: #0aa8db;
+}
+
+.btn--secondary {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.btn--secondary:hover,
+.btn--secondary:focus-visible {
+  border-color: var(--sky);
+  color: var(--sky);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--navy);
+  border: 1px solid var(--silver);
+}
+
+.btn--ghost:hover,
+.btn--ghost:focus-visible {
+  border-color: var(--sky-text);
+  color: var(--sky-text);
+}
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--silver);
+  border-radius: var(--radius-md);
+  transition: transform var(--motion-base) var(--motion-ease), box-shadow var(--motion-base) var(--motion-ease);
+}
+
+.card:hover,
+.card:focus-within {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px -12px rgba(11, 31, 58, 0.2);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-5);
+}
+
+@media (min-width: 640px) {
+  .grid--2 {
+    /* minmax(0, 1fr), not bare 1fr: a grid track's implicit min-width is
+       auto, which stops it shrinking below its content's intrinsic width
+       and can force the grid wider than its container. */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .grid--4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

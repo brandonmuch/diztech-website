@@ -1,0 +1,106 @@
+---
+import { getEntry } from "astro:content";
+
+const settingsEntry = await getEntry("siteSettings", "main");
+const wordmark = settingsEntry?.data.wordmark ?? "DizTech";
+const tagline = settingsEntry?.data.tagline ?? "Trusted.";
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div class="site-footer__brand">
+      <p class="wordmark">
+        <picture>
+          <source srcset="/uploads/diztech-logo.avif" type="image/avif" />
+          <img src="/uploads/diztech-logo.png" alt={wordmark} width="55" height="44" class="wordmark__mark" />
+        </picture>
+      </p>
+      <p class="tagline">{tagline}</p>
+    </div>
+
+    <nav aria-label="Footer">
+      <ul class="site-footer__links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/#about">About Us</a></li>
+        <li><a href="/technology-services">Technology & Services</a></li>
+        <li><a href="/insights">Insights</a></li>
+        <li><a href="/#careers">Careers</a></li>
+        <li><a href="/#contact">Schedule a Consultation</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="container site-footer__bottom">
+    <p>&copy; {year} {wordmark}. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--navy);
+    color: var(--white);
+    padding-top: var(--space-7);
+  }
+
+  .site-footer__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    padding-bottom: var(--space-6);
+  }
+
+  .site-footer__brand .wordmark {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .wordmark__mark {
+    display: block;
+    width: 55px;
+    height: 44px;
+  }
+
+  .site-footer__brand .tagline {
+    color: var(--sky);
+    margin-top: var(--space-2);
+  }
+
+  .site-footer__links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .site-footer__links a {
+    color: var(--silver);
+    text-decoration: none;
+    font-size: var(--text-sm);
+  }
+
+  .site-footer__links a:hover,
+  .site-footer__links a:focus-visible {
+    color: var(--sky);
+  }
+
+  .site-footer__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-block: var(--space-4);
+    font-size: var(--text-xs);
+    color: var(--silver);
+  }
+
+  @media (min-width: 768px) {
+    .site-footer__inner {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .site-footer__links {
+      flex-direction: row;
+      gap: var(--space-5);
+    }
+  }
+</style>

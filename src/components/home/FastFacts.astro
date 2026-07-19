@@ -1,0 +1,163 @@
+---
+import { getEntry } from "astro:content";
+import SectionHeading from "../ui/SectionHeading.astro";
+
+const entry = await getEntry("home", "fast-facts");
+const data = entry!.data as {
+  heading: string;
+  cards: Array<{ front: string; back: string; icon: string }>;
+};
+
+const icons: Record<string, string> = {
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>',
+  award:
+    '<circle cx="12" cy="8" r="5"/><path d="m8.5 13.5-1.5 7 5-2.5 5 2.5-1.5-7"/>',
+  grid: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+  globe:
+    '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z"/>',
+  compass:
+    '<circle cx="12" cy="12" r="9"/><path d="m15 9-2 6-6 2 2-6 6-2Z"/>',
+};
+---
+
+<section class="section fast-facts">
+  <div class="container">
+    <SectionHeading heading={data.heading} />
+
+    <div class="fast-facts__grid">
+      {
+        data.cards.map((card, i) => (
+          <div class="flip-card" data-reveal style={`transition-delay: ${i * 60}ms`}>
+            <button
+              class="flip-card__trigger"
+              aria-expanded="false"
+              aria-label={`${card.front} — show detail`}
+            >
+              <span class="flip-card__inner">
+                <span class="flip-card__face flip-card__face--front">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                    set:html={icons[card.icon] ?? icons.compass}
+                  />
+                  <span class="flip-card__title">{card.front}</span>
+                </span>
+                <span class="flip-card__face flip-card__face--back">
+                  <span>{card.back}</span>
+                </span>
+              </span>
+            </button>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .fast-facts__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  .flip-card {
+    perspective: 1000px;
+    height: 220px;
+  }
+
+  .flip-card__trigger {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+
+  .flip-card__inner {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform var(--motion-slow) var(--motion-ease);
+  }
+
+  .flip-card__trigger:hover .flip-card__inner,
+  .flip-card__trigger:focus-visible .flip-card__inner,
+  .flip-card__trigger.is-flipped .flip-card__inner {
+    transform: rotateY(180deg);
+  }
+
+  .flip-card__face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    text-align: center;
+    backface-visibility: hidden;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .flip-card__face--back span {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .flip-card__face--front {
+    background: var(--navy);
+    color: var(--white);
+  }
+
+  .flip-card__face--front svg {
+    width: 32px;
+    height: 32px;
+    color: var(--sky);
+  }
+
+  .flip-card__title {
+    font-family: var(--font-display);
+    font-size: var(--text-md);
+    font-weight: 600;
+  }
+
+  .flip-card__face--back {
+    background: var(--sky);
+    color: var(--navy);
+    transform: rotateY(180deg);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flip-card__inner {
+      transition: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .fast-facts__grid {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+</style>
+
+<script>
+  // Touch devices have no hover state — tap toggles the flip via a class instead.
+  document.querySelectorAll<HTMLButtonElement>(".flip-card__trigger").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const flipped = btn.classList.toggle("is-flipped");
+      btn.setAttribute("aria-expanded", String(flipped));
+    });
+  });
+</script>

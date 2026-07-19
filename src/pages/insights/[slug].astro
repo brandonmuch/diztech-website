@@ -1,0 +1,153 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TonalPlaceholder from "../../components/ui/TonalPlaceholder.astro";
+
+export async function getStaticPaths() {
+  const articles = await getCollection("insights");
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { title, category, date, excerpt, image } = article.data;
+const { Content } = await render(article);
+---
+
+<BaseLayout title={title} description={excerpt}>
+  <article class="article">
+    <header class="section section--navy article__header">
+      <div class="container">
+        <a href="/insights" class="article__back">← Back to Insights</a>
+        <p class="eyebrow">{category}</p>
+        <h1>{title}</h1>
+        <time datetime={date.toISOString()}>
+          {date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+        </time>
+      </div>
+    </header>
+
+    <div class="container article__body-wrap">
+      <div class="article__media">
+        {
+          image ? (
+            <img src={image} alt={title} />
+          ) : (
+            <TonalPlaceholder alt={title} variant="abyssal" />
+          )
+        }
+      </div>
+
+      <div class="article__body">
+        <Content />
+      </div>
+
+      <div class="article__cta">
+        <p>Ready to talk through how this applies to your organisation?</p>
+        <a href="/#contact" class="btn btn--primary">Schedule a Consultation</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article__back {
+    display: inline-block;
+    color: var(--sky);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    margin-bottom: var(--space-4);
+  }
+
+  .article__header h1 {
+    font-size: var(--text-3xl);
+    color: var(--white);
+    max-width: 28ch;
+    margin-top: var(--space-3);
+  }
+
+  .article__header time {
+    display: block;
+    margin-top: var(--space-3);
+    color: var(--silver);
+    font-size: var(--text-sm);
+  }
+
+  .article__body-wrap {
+    padding-block: var(--space-7);
+    max-width: 72ch;
+  }
+
+  .article__media {
+    /* Source photos are pre-cropped to 4:3 landscape; matches exactly, no
+       further crop happens here. */
+    aspect-ratio: 4 / 3;
+    margin-bottom: var(--space-6);
+  }
+
+  .article__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+  }
+
+  .article__body :global(h2) {
+    font-size: var(--text-xl);
+    color: var(--navy);
+    margin-top: var(--space-6);
+  }
+
+  .article__body :global(p) {
+    margin-top: var(--space-3);
+    color: var(--charcoal);
+  }
+
+  .article__body :global(ul),
+  .article__body :global(ol) {
+    margin-top: var(--space-3);
+    padding-left: var(--space-5);
+    color: var(--charcoal);
+  }
+
+  .article__body :global(li) {
+    margin-top: var(--space-2);
+  }
+
+  .article__body :global(strong) {
+    color: var(--navy);
+  }
+
+  .article__cta {
+    margin-top: var(--space-7);
+    padding: var(--space-5);
+    background: var(--silver-soft);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: flex-start;
+  }
+
+  .article__cta p {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  @media (min-width: 768px) {
+    .article__header h1 {
+      font-size: var(--text-4xl);
+    }
+
+    .article__cta {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+</style>

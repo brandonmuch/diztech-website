@@ -1,0 +1,72 @@
+---
+interface Props {
+  categories: string[];
+}
+
+const { categories } = Astro.props;
+---
+
+<div class="category-filter" role="group" aria-label="Filter articles by category">
+  <button type="button" class="category-filter__btn is-active" data-category="all" aria-pressed="true">
+    All
+  </button>
+  {
+    categories.map((category) => (
+      <button type="button" class="category-filter__btn" data-category={category} aria-pressed="false">
+        {category}
+      </button>
+    ))
+  }
+</div>
+
+<style>
+  .category-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+  }
+
+  .category-filter__btn {
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--silver);
+    border-radius: 999px;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--navy);
+    background: var(--white);
+    transition: background-color var(--motion-fast) var(--motion-ease), color var(--motion-fast) var(--motion-ease);
+  }
+
+  .category-filter__btn:hover,
+  .category-filter__btn:focus-visible {
+    border-color: var(--sky-text);
+  }
+
+  .category-filter__btn.is-active {
+    background: var(--navy);
+    color: var(--white);
+    border-color: var(--navy);
+  }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>(".category-filter__btn");
+  const cards = document.querySelectorAll<HTMLElement>("[data-category]:not(.category-filter__btn)");
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const selected = btn.dataset.category;
+
+      buttons.forEach((b) => {
+        b.classList.toggle("is-active", b === btn);
+        b.setAttribute("aria-pressed", String(b === btn));
+      });
+
+      cards.forEach((card) => {
+        const matches = selected === "all" || card.dataset.category === selected;
+        card.hidden = !matches;
+      });
+    });
+  });
+</script>

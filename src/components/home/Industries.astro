@@ -1,0 +1,104 @@
+---
+import { getEntry } from "astro:content";
+import SectionHeading from "../ui/SectionHeading.astro";
+
+const entry = await getEntry("home", "industries");
+const data = entry!.data as {
+  heading: string;
+  description: string;
+  items: Array<{ name: string; icon: string }>;
+};
+
+const icons: Record<string, string> = {
+  building: '<path d="M4 21V7l8-4 8 4v14"/><path d="M9 21v-6h6v6"/><path d="M9 11h.01M15 11h.01M9 15h.01M15 15h.01"/>',
+  bank: '<path d="M3 21h18"/><path d="M4 21V9l8-5 8 5v12"/><path d="M9 21v-6h6v6"/>',
+  signal: '<path d="M4 20h.01M9 20v-4M14 20v-8M19 20V6"/>',
+  cross: '<path d="M12 4v16M4 12h16"/>',
+  book: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/>',
+  mountain: '<path d="m8 21 4-13 4 13"/><path d="m3 21 6-11 3 5"/>',
+  factory: '<path d="M3 21V10l6 4v-4l6 4V7l6 4v10Z"/>',
+  bolt: '<path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/>',
+  cart: '<circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M3 3h2l2.4 12.4a2 2 0 0 0 2 1.6h7.2a2 2 0 0 0 2-1.6L21 7H6"/>',
+  heart: '<path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/>',
+};
+---
+
+<section class="section section--wash industries">
+  <div class="container industries__layout">
+    <div class="industries__intro">
+      <SectionHeading heading={data.heading} description={data.description} />
+    </div>
+
+    <ul class="industries__cluster" data-reveal>
+      {
+        data.items.map((item) => (
+          <li class="industries__tag">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              set:html={icons[item.icon] ?? icons.building}
+            />
+            <span>{item.name}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .industries__layout {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .industries__intro .section-heading {
+    margin-bottom: 0;
+  }
+
+  .industries__cluster {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-3);
+  }
+
+  .industries__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: var(--white);
+    border: 1px solid var(--silver);
+    border-radius: 999px;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--navy);
+    transition: border-color var(--motion-fast) var(--motion-ease), transform var(--motion-fast) var(--motion-ease);
+  }
+
+  .industries__tag:hover {
+    border-color: var(--sky);
+    transform: translateY(-2px);
+  }
+
+  .industries__tag svg {
+    width: 18px;
+    height: 18px;
+    color: var(--sky-text);
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .industries__layout {
+      grid-template-columns: 1fr 1.4fr;
+      align-items: start;
+    }
+  }
+</style>

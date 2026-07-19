@@ -1,0 +1,147 @@
+---
+import type { CollectionEntry } from "astro:content";
+import AccordionSection from "./AccordionSection.astro";
+import FeatureGrid from "./FeatureGrid.astro";
+import WhyChooseCards from "./WhyChooseCards.astro";
+import RelatedServices from "./RelatedServices.astro";
+import { icons, defaultIconKey } from "../../lib/icons";
+
+interface Props {
+  service: CollectionEntry<"services">;
+  allServices: CollectionEntry<"services">[];
+  index: number;
+}
+
+const { service, allServices, index } = Astro.props;
+const { title, icon, summary, overview, challenges, approach, features, benefits, whyChooseUs, relatedServices, cta } =
+  service.data;
+---
+
+<article class="service-block" id={service.id} data-reveal>
+  <header class="service-block__hero">
+    <svg
+      class="service-block__icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+      set:html={icons[icon] ?? icons[defaultIconKey]}
+    />
+    <div class="service-block__text">
+      <h2>{title}</h2>
+      <p class="service-block__tagline">{summary}</p>
+    </div>
+  </header>
+
+  <div class="service-block__accordion">
+    <AccordionSection
+      id={`${service.id}-overview`}
+      title="Service overview"
+      summary={overview.summary}
+      body={overview.body}
+      open={index === 0}
+    />
+    <AccordionSection
+      id={`${service.id}-challenges`}
+      title="Business challenges we solve"
+      summary={challenges.summary}
+      body={challenges.body}
+    />
+    <AccordionSection
+      id={`${service.id}-approach`}
+      title="Our approach"
+      summary={approach.summary}
+      body={approach.body}
+    />
+
+    <AccordionSection id={`${service.id}-features`} title="Key features / capabilities" wide>
+      <FeatureGrid features={features} />
+    </AccordionSection>
+
+    <AccordionSection
+      id={`${service.id}-benefits`}
+      title="Benefits to your organisation"
+      summary={benefits.summary}
+      body={benefits.body}
+    />
+
+    <AccordionSection id={`${service.id}-why-choose`} title="Why choose DizTech" wide>
+      <WhyChooseCards items={whyChooseUs} />
+    </AccordionSection>
+  </div>
+
+  <RelatedServices relatedSlugs={relatedServices} allServices={allServices} />
+
+  <div class="service-block__cta">
+    <p>{cta.heading}</p>
+    <a href={cta.buttonHref} class="btn btn--primary">{cta.buttonText}</a>
+  </div>
+</article>
+
+<style>
+  .service-block {
+    padding-block: var(--space-7);
+    border-bottom: 1px solid var(--silver);
+  }
+
+  .service-block__hero {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    margin-bottom: var(--space-5);
+  }
+
+  .service-block__icon {
+    width: 40px;
+    height: 40px;
+    color: var(--sky-text);
+    flex-shrink: 0;
+  }
+
+  .service-block__text {
+    /* Flex children default to min-width:auto, which stops them shrinking
+       below their content's intrinsic width — the actual cause of the
+       tagline overflowing the viewport at narrow widths. */
+    min-width: 0;
+  }
+
+  .service-block__hero h2 {
+    font-size: var(--text-2xl);
+    color: var(--navy);
+  }
+
+  .service-block__tagline {
+    margin-top: var(--space-2);
+    color: var(--charcoal);
+    font-size: var(--text-md);
+  }
+
+  .service-block__cta {
+    margin-top: var(--space-6);
+    padding: var(--space-5);
+    background: var(--navy);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: flex-start;
+  }
+
+  .service-block__cta p {
+    color: var(--white);
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+  }
+
+  @media (min-width: 640px) {
+    .service-block__cta {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+</style>

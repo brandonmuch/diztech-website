@@ -1,0 +1,88 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CategoryFilter from "../../components/insights/CategoryFilter.astro";
+import FeaturedArticleCard from "../../components/insights/FeaturedArticleCard.astro";
+import ArticleGrid from "../../components/insights/ArticleGrid.astro";
+
+const allArticles = (await getCollection("insights")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const featured = allArticles.find((a) => a.data.featured) ?? allArticles[0];
+const latest = allArticles.filter((a) => a.id !== featured.id);
+
+const categories = [
+  "SAP",
+  "S/4HANA",
+  "SuccessFactors",
+  "Public Finance",
+  "Digital Transformation",
+  "ERP Implementation",
+  "Project Management",
+  "Change Management",
+  "Business Advisory",
+];
+---
+
+<BaseLayout
+  title="Insights"
+  description="Insights and resources on SAP, ERP implementation, project management, and digital transformation across Africa, from DizTech."
+>
+  <section class="section section--navy insights-hero">
+    <div class="container">
+      <h1>Thinking that moves African institutions forward</h1>
+      <p class="insights-hero__intro">
+        Practical perspectives on ERP implementation, project management, and digital
+        transformation, drawn from two decades of advisory experience across the continent.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <CategoryFilter categories={categories} />
+
+      <div data-reveal>
+        <FeaturedArticleCard article={featured} />
+      </div>
+
+      <div class="insights-latest">
+        <h2>Latest articles</h2>
+        <ArticleGrid articles={latest} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .insights-hero h1 {
+    font-size: var(--text-3xl);
+    color: var(--white);
+    max-width: 22ch;
+    margin-top: var(--space-3);
+  }
+
+  .insights-hero__intro {
+    margin-top: var(--space-4);
+    color: var(--silver);
+    font-size: var(--text-md);
+    max-width: 50ch;
+  }
+
+  .insights-latest {
+    margin-top: var(--space-8);
+  }
+
+  .insights-latest h2 {
+    font-size: var(--text-2xl);
+    color: var(--navy);
+    margin-bottom: var(--space-5);
+  }
+
+  @media (min-width: 768px) {
+    .insights-hero h1 {
+      font-size: var(--text-4xl);
+    }
+  }
+</style>

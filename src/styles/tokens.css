@@ -1,0 +1,72 @@
+:root {
+  /* Core palette — respect the 60% white / 25% navy / 10% sky / 5% utility ratio */
+  --white: #ffffff;
+  --navy: #0b1f3a;
+  --sky: #03b9f1;
+  /* Accessible text/icon variant of sky — the raw --sky fails WCAG AA (2.28:1) on
+     white/light backgrounds. Use this for any sky-colored text, link, or meaningful
+     icon sitting on a light surface (5.04:1 on white). Keep --sky for backgrounds,
+     borders, and text on dark surfaces, where it already passes. */
+  --sky-text: #00789c;
+
+  /* Utilities */
+  --charcoal: #2b2f36;
+  --silver: #e6eaee;
+  --silver-soft: #f4f6f8;
+
+  /* Tonal accent — imagery/duotone treatments only, never UI fills */
+  --abyssal: #003f47;
+
+  /* Type families — sans pairing chosen to match the logo's bold geometric
+     wordmark. Lexend carries the display personality (distinctive, confident,
+     built for enterprise/trust contexts); Source Sans 3 is the quiet workhorse
+     for body copy, UI, and data. Fraunces was dropped deliberately: it's one of
+     the two most common AI-default display serifs, and it fought the logo. */
+  --font-display: "Lexend", sans-serif;
+  --font-body: "Source Sans 3", sans-serif;
+
+  /* Type scale — major-third-ish (1.25). xs/sm/base stay fixed (body and UI
+     text shouldn't shrink below a comfortable reading size on small screens).
+     md and up are fluid: they interpolate smoothly between a 400px and a
+     1280px viewport instead of jumping at breakpoints, so headings scale
+     responsively on mobile without per-component media queries. */
+  --text-xs: 0.8rem;
+  --text-sm: 0.9rem;
+  --text-base: 1rem;
+  --text-md: clamp(1.05rem, 0.959rem + 0.36vw, 1.25rem);
+  --text-lg: clamp(1.2rem, 1.035rem + 0.66vw, 1.563rem);
+  --text-xl: clamp(1.4rem, 1.149rem + 1.01vw, 1.953rem);
+  --text-2xl: clamp(1.65rem, 1.29rem + 1.44vw, 2.441rem);
+  --text-3xl: clamp(2rem, 1.522rem + 1.91vw, 3.052rem);
+  --text-4xl: clamp(2.5rem, 1.902rem + 2.39vw, 3.815rem);
+  --text-5xl: clamp(2.85rem, 1.978rem + 3.49vw, 4.768rem);
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+  --space-7: 4rem;
+  --space-8: 6rem;
+  --space-9: 8rem;
+
+  /* Motion */
+  --motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --motion-fast: 0.2s;
+  --motion-base: 0.4s;
+  --motion-slow: 0.6s;
+
+  /* Layout */
+  --max-width: 1280px;
+
+  /* Corner-radius scale — one system, applied consistently: small controls
+     (inputs, tags, chevron chips) use --radius-sm; buttons use --radius-btn;
+     cards and media use --radius-md/--radius-lg; fully round pills use 999px
+     directly, since they're a distinct shape family, not a radius step. */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-btn: 10px;
+}

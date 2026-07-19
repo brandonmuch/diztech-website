@@ -1,0 +1,194 @@
+---
+import { getEntry } from "astro:content";
+import SectionHeading from "../ui/SectionHeading.astro";
+
+const entry = await getEntry("home", "contact");
+const data = entry!.data as {
+  heading: string;
+  intro: string;
+  serviceOptions: string[];
+  locationsHeading: string;
+  locations: Array<{ name: string; address: string; phone: string }>;
+  closingLine: string;
+  privacyNote: string;
+};
+---
+
+<section class="section contact" id="contact">
+  <div class="container">
+    <SectionHeading heading={data.heading} description={data.intro} />
+
+    <div class="contact__grid">
+      <form
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="contact__form"
+        data-reveal
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="visually-hidden">
+          <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+        </p>
+
+        <div class="contact__field-row">
+          <div class="contact__field">
+            <label for="firstName">First name *</label>
+            <input id="firstName" name="firstName" type="text" required />
+          </div>
+          <div class="contact__field">
+            <label for="lastName">Last name *</label>
+            <input id="lastName" name="lastName" type="text" required />
+          </div>
+        </div>
+
+        <div class="contact__field-row">
+          <div class="contact__field">
+            <label for="email">Email address *</label>
+            <input id="email" name="email" type="email" required />
+          </div>
+          <div class="contact__field">
+            <label for="phone">Phone number *</label>
+            <input id="phone" name="phone" type="tel" required />
+          </div>
+        </div>
+
+        <div class="contact__field-row">
+          <div class="contact__field">
+            <label for="company">Company</label>
+            <input id="company" name="company" type="text" />
+          </div>
+          <div class="contact__field">
+            <label for="role">Job title / role</label>
+            <input id="role" name="role" type="text" />
+          </div>
+        </div>
+
+        <div class="contact__field">
+          <label for="serviceInterest">Service interest</label>
+          <select id="serviceInterest" name="serviceInterest">
+            {data.serviceOptions.map((option) => <option value={option}>{option}</option>)}
+          </select>
+        </div>
+
+        <div class="contact__field">
+          <label for="message">How would you want us to help you?</label>
+          <textarea id="message" name="message" rows="4"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn--primary">Schedule a Consultation</button>
+
+        <p class="contact__privacy">{data.privacyNote}</p>
+      </form>
+
+      <div class="contact__locations" data-reveal>
+        <h3>{data.locationsHeading}</h3>
+        {
+          data.locations.map((loc) => (
+            <div class="contact__location">
+              <p class="contact__location-name">{loc.name}</p>
+              <p>{loc.address}</p>
+              <p><a href={`tel:${loc.phone.replace(/\s+/g, "")}`}>{loc.phone}</a></p>
+            </div>
+          ))
+        }
+        <p class="contact__closing">{data.closingLine}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact__grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .contact__field-row {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .contact__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .contact__field label {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  .contact__field input,
+  .contact__field select,
+  .contact__field textarea {
+    padding: var(--space-3);
+    border: 1px solid var(--silver);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+  }
+
+  .contact__field input:focus-visible,
+  .contact__field select:focus-visible,
+  .contact__field textarea:focus-visible {
+    outline: 2px solid var(--sky-text);
+    outline-offset: 1px;
+  }
+
+  .contact__privacy {
+    font-size: var(--text-xs);
+    color: var(--charcoal);
+  }
+
+  .contact__locations h3 {
+    font-size: var(--text-lg);
+    color: var(--navy);
+    margin-bottom: var(--space-4);
+  }
+
+  .contact__location {
+    padding: var(--space-4);
+    background: var(--silver-soft);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-3);
+  }
+
+  .contact__location-name {
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  .contact__location a {
+    color: var(--sky-text);
+    text-decoration: none;
+  }
+
+  .contact__closing {
+    margin-top: var(--space-4);
+    font-family: var(--font-display);
+    font-size: var(--text-md);
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  @media (min-width: 640px) {
+    .contact__field-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .contact__grid {
+      grid-template-columns: 3fr 2fr;
+    }
+  }
+</style>

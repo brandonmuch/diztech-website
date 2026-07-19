@@ -1,0 +1,82 @@
+---
+import { toParagraphs, wordCount } from "../../lib/renderText";
+
+interface Props {
+  summary: string;
+  body: string;
+  id: string;
+  threshold?: number;
+}
+
+const { summary, body, id, threshold = 90 } = Astro.props;
+const needsReveal = wordCount(body) > threshold;
+const paragraphs = toParagraphs(body);
+---
+
+<div class="read-more">
+  <p class="read-more__summary">{summary}</p>
+
+  {
+    needsReveal ? (
+      <>
+        <button
+          type="button"
+          class="read-more__trigger"
+          aria-expanded="false"
+          aria-controls={`${id}-full`}
+        >
+          Read more
+        </button>
+        <div class="read-more__full" id={`${id}-full`}>
+          {paragraphs.map((p) => <p>{p}</p>)}
+        </div>
+      </>
+    ) : (
+      paragraphs.map((p) => <p>{p}</p>)
+    )
+  }
+</div>
+
+<style>
+  .read-more__summary {
+    font-weight: 500;
+  }
+
+  .read-more__full p {
+    margin-top: var(--space-3);
+  }
+
+  .read-more__trigger {
+    margin-top: var(--space-3);
+    color: var(--sky-text);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .read-more__trigger:hover,
+  .read-more__trigger:focus-visible {
+    color: var(--navy);
+  }
+</style>
+
+<script>
+  // Full content is server-rendered and visible by default (no-JS baseline).
+  // Once JS confirms it can run, collapse it behind the "Read more" trigger.
+  document.querySelectorAll<HTMLButtonElement>(".read-more__trigger").forEach((btn) => {
+    const fullId = btn.getAttribute("aria-controls");
+    if (!fullId) return;
+    const full = document.getElementById(fullId);
+    if (!full) return;
+
+    full.hidden = true;
+
+    btn.addEventListener("click", () => {
+      const isOpen = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!isOpen));
+      full.hidden = isOpen;
+      btn.textContent = isOpen ? "Read more" : "Show less";
+    });
+  });
+</script>

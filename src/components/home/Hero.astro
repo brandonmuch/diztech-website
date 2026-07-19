@@ -1,0 +1,256 @@
+---
+import { getEntry } from "astro:content";
+import TonalPlaceholder from "../ui/TonalPlaceholder.astro";
+
+const entry = await getEntry("home", "hero");
+const data = entry!.data as {
+  eyebrow: string;
+  headline: string;
+  subheadline: string;
+  ctaText: string;
+  ctaHref: string;
+  secondaryCtaText: string;
+  secondaryCtaHref: string;
+  image?: string;
+  imageAlt: string;
+};
+---
+
+<section class="hero">
+  <div class="hero__media">
+    {
+      data.image ? (
+        <img src={data.image} alt={data.imageAlt} />
+      ) : (
+        <TonalPlaceholder alt={data.imageAlt} variant="navy" />
+      )
+    }
+  </div>
+
+  <div class="container hero__content">
+    <p class="hero__eyebrow">
+      <span class="hero__eyebrow-rule" aria-hidden="true"></span>
+      {data.eyebrow}
+    </p>
+    <h1 class="hero__headline" id="hero-headline">{data.headline}</h1>
+    <p class="hero__subheadline">{data.subheadline}</p>
+    <div class="hero__actions">
+      <a href={data.ctaHref} class="btn btn--primary">{data.ctaText}</a>
+      <a href={data.secondaryCtaHref} class="btn btn--secondary">{data.secondaryCtaText}</a>
+    </div>
+  </div>
+
+  <a href="#about" class="hero__scroll-cue" aria-label="Scroll to explore">
+    <span class="hero__scroll-cue-line" aria-hidden="true"></span>
+  </a>
+</section>
+
+<script>
+  const hero = document.querySelector<HTMLElement>(".hero");
+  const media = document.querySelector<HTMLElement>(".hero__media");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (hero && media && !reduceMotion) {
+    let ticking = false;
+
+    const update = () => {
+      const rect = hero.getBoundingClientRect();
+      if (rect.bottom > 0 && rect.top < window.innerHeight) {
+        media.style.transform = `translateY(${rect.top * -0.15}px)`;
+      }
+      ticking = false;
+    };
+
+    update();
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(update);
+          ticking = true;
+        }
+      },
+      { passive: true }
+    );
+  }
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    color: var(--white);
+    overflow: hidden;
+  }
+
+  .hero__media {
+    position: absolute;
+    top: -18%;
+    left: 0;
+    right: 0;
+    height: 136%;
+    z-index: 0;
+    will-change: transform;
+  }
+
+  .hero__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1);
+    animation: hero-zoom 22s var(--motion-ease) forwards;
+  }
+
+  @keyframes hero-zoom {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.09);
+    }
+  }
+
+  .hero__media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(11, 31, 58, 0.15) 0%, rgba(11, 31, 58, 0.35) 45%, rgba(11, 31, 58, 0.92) 100%),
+      linear-gradient(90deg, rgba(11, 31, 58, 0.55) 0%, rgba(11, 31, 58, 0) 55%);
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    padding-block: var(--space-8) var(--space-8);
+    max-width: 50rem;
+  }
+
+  .hero__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--sky);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: hero-fade-up 0.8s var(--motion-ease) 0.1s forwards;
+  }
+
+  .hero__eyebrow-rule {
+    display: inline-block;
+    width: 32px;
+    height: 2px;
+    background: var(--sky);
+  }
+
+  .hero__headline {
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    margin-top: var(--space-4);
+    opacity: 0;
+    animation: hero-fade-up 0.8s var(--motion-ease) 0.25s forwards;
+  }
+
+  .hero__subheadline {
+    margin-top: var(--space-4);
+    font-size: var(--text-md);
+    color: var(--silver);
+    max-width: 38rem;
+    opacity: 0;
+    animation: hero-fade-up 0.8s var(--motion-ease) 0.4s forwards;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+    opacity: 0;
+    animation: hero-fade-up 0.8s var(--motion-ease) 0.55s forwards;
+  }
+
+  .hero__scroll-cue {
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    bottom: var(--space-5);
+    transform: translateX(-50%);
+    display: none;
+  }
+
+  .hero__scroll-cue-line {
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(180deg, var(--sky) 0%, rgba(255, 255, 255, 0) 100%);
+    animation: hero-scroll-cue 2s var(--motion-ease) infinite;
+  }
+
+  @keyframes hero-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes hero-scroll-cue {
+    0% {
+      transform: translateY(-8px);
+      opacity: 0;
+    }
+    40% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(16px);
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__media img {
+      animation: none;
+    }
+
+    .hero__eyebrow,
+    .hero__headline,
+    .hero__subheadline,
+    .hero__actions {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    .hero__scroll-cue-line {
+      animation: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .hero__headline {
+      font-size: var(--text-4xl);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero__headline {
+      font-size: var(--text-5xl);
+    }
+
+    .hero__scroll-cue {
+      display: block;
+    }
+  }
+</style>

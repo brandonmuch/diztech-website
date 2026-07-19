@@ -1,0 +1,77 @@
+---
+import { icons, defaultIconKey } from "../../lib/icons";
+
+interface Props {
+  items: Array<{ icon: string; title: string; text: string }>;
+}
+
+const { items } = Astro.props;
+---
+
+<ul class="why-choose-list">
+  {
+    items.map((item) => (
+      <li class="why-choose-item">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          set:html={icons[item.icon] ?? icons[defaultIconKey]}
+        />
+        <div>
+          <h4>{item.title}</h4>
+          <p>{item.text}</p>
+        </div>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .why-choose-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+    margin-top: var(--space-3);
+  }
+
+  .why-choose-item {
+    display: flex;
+    gap: var(--space-3);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--silver);
+  }
+
+  .why-choose-item svg {
+    width: 24px;
+    height: 24px;
+    color: var(--sky-text);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .why-choose-item h4 {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: var(--text-sm);
+    color: var(--navy);
+  }
+
+  .why-choose-item p {
+    margin-top: var(--space-1);
+    font-size: var(--text-sm);
+    color: var(--charcoal);
+  }
+
+  @media (min-width: 640px) {
+    .why-choose-list {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: var(--space-5);
+    }
+  }
+</style>

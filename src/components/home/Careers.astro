@@ -1,0 +1,114 @@
+---
+import { getEntry } from "astro:content";
+import SectionHeading from "../ui/SectionHeading.astro";
+
+const entry = await getEntry("home", "careers");
+const data = entry!.data as {
+  eyebrow: string;
+  heading: string;
+  subtext: string;
+  ctaText: string;
+  ctaHref: string;
+  whyWorkWithUs: Array<{ title: string; description: string }>;
+  openings: Array<{ title: string; description: string }>;
+  howToApply: string;
+  closingLine: string;
+};
+---
+
+<section class="section section--navy careers" id="careers">
+  <div class="container">
+    <SectionHeading eyebrow={data.eyebrow} heading={data.heading} description={data.subtext} />
+
+    <a href={data.ctaHref} class="btn btn--primary" data-reveal>{data.ctaText}</a>
+
+    <div class="careers__grid">
+      <div class="careers__why" data-reveal>
+        <h3>Why work with us</h3>
+        <ul>
+          {
+            data.whyWorkWithUs.map((item) => (
+              <li>
+                <strong>{item.title}.</strong> {item.description}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="careers__openings" data-reveal>
+        <h3>Current openings</h3>
+        <ul>
+          {
+            data.openings.map((role) => (
+              <li>
+                <strong>{role.title}</strong>
+                <span>{role.description}</span>
+              </li>
+            ))
+          }
+        </ul>
+
+        <h3>How to apply</h3>
+        <p>{data.howToApply}</p>
+        <p class="careers__closing">{data.closingLine}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .careers h3 {
+    font-size: var(--text-lg);
+    color: var(--white);
+    margin-bottom: var(--space-3);
+  }
+
+  .careers__grid {
+    display: grid;
+    gap: var(--space-6);
+    margin-top: var(--space-7);
+  }
+
+  .careers ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .careers__why li,
+  .careers__openings p {
+    color: var(--silver);
+    font-size: var(--text-sm);
+  }
+
+  .careers__openings li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    color: var(--silver);
+    font-size: var(--text-sm);
+  }
+
+  .careers__openings li strong {
+    color: var(--white);
+  }
+
+  .careers__openings h3:not(:first-child) {
+    margin-top: var(--space-5);
+  }
+
+  .careers__closing {
+    margin-top: var(--space-3);
+    color: var(--sky);
+    font-style: italic;
+  }
+
+  @media (min-width: 1024px) {
+    .careers__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

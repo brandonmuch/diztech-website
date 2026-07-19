@@ -1,0 +1,96 @@
+---
+import type { CollectionEntry } from "astro:content";
+import TonalPlaceholder from "../ui/TonalPlaceholder.astro";
+
+interface Props {
+  article: CollectionEntry<"insights">;
+}
+
+const { article } = Astro.props;
+const { title, category, date, excerpt, image } = article.data;
+---
+
+<a href={`/insights/${article.id}`} class="featured-card">
+  <div class="featured-card__media">
+    {
+      image ? (
+        <img src={image} alt={title} />
+      ) : (
+        <TonalPlaceholder alt={title} variant="navy" />
+      )
+    }
+  </div>
+  <div class="featured-card__body">
+    <span class="eyebrow">Featured · {category}</span>
+    <h2>{title}</h2>
+    <p>{excerpt}</p>
+    <time datetime={date.toISOString()}>
+      {date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+    </time>
+    <span class="btn btn--ghost">Read the full article</span>
+  </div>
+</a>
+
+<style>
+  .featured-card {
+    display: grid;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--silver);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: transform var(--motion-base) var(--motion-ease), box-shadow var(--motion-base) var(--motion-ease);
+  }
+
+  .featured-card:hover,
+  .featured-card:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px -12px rgba(11, 31, 58, 0.2);
+  }
+
+  .featured-card__media {
+    aspect-ratio: 4 / 3;
+  }
+
+  @media (min-width: 900px) {
+    .featured-card__media {
+      aspect-ratio: auto;
+      height: 100%;
+    }
+  }
+
+  .featured-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .featured-card__body {
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: flex-start;
+  }
+
+  .featured-card__body h2 {
+    font-size: var(--text-2xl);
+    color: var(--navy);
+  }
+
+  .featured-card__body p {
+    color: var(--charcoal);
+    max-width: 60ch;
+  }
+
+  .featured-card__body time {
+    font-size: var(--text-xs);
+    color: var(--charcoal);
+  }
+
+  @media (min-width: 900px) {
+    .featured-card {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

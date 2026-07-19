@@ -1,0 +1,111 @@
+---
+import type { CollectionEntry } from "astro:content";
+import TonalPlaceholder from "../ui/TonalPlaceholder.astro";
+
+interface Props {
+  article: CollectionEntry<"insights">;
+}
+
+const { article } = Astro.props;
+const { title, category, date, excerpt, image } = article.data;
+
+const variants = ["navy", "abyssal", "sky"] as const;
+const variant = variants[Math.abs(hashCode(article.id)) % variants.length];
+
+function hashCode(str: string) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash << 5) - hash + str.charCodeAt(i);
+  }
+  return hash;
+}
+---
+
+<a href={`/insights/${article.id}`} class="article-card card" data-category={category}>
+  <div class="article-card__media">
+    {
+      image ? (
+        <img src={image} alt={title} loading="lazy" />
+      ) : (
+        <TonalPlaceholder alt={title} variant={variant} />
+      )
+    }
+  </div>
+  <div class="article-card__body">
+    <span class="article-card__tag">{category}</span>
+    <h3>{title}</h3>
+    <p>{excerpt}</p>
+    <div class="article-card__meta">
+      <time datetime={date.toISOString()}>
+        {date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+      </time>
+      <span class="article-card__link">Read more →</span>
+    </div>
+  </div>
+</a>
+
+<style>
+  .article-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+  }
+
+  .article-card__media {
+    /* Source photos are pre-cropped to 4:3 landscape (see public/uploads),
+       so the container just needs to match — no further crop happens here. */
+    aspect-ratio: 4 / 3;
+  }
+
+  .article-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .article-card__body {
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  /* A functional category tag, not a decorative section kicker: filled pill,
+     ties visually to the CategoryFilter buttons above the grid. */
+  .article-card__tag {
+    display: inline-flex;
+    align-self: flex-start;
+    padding: var(--space-1) var(--space-3);
+    background: var(--silver-soft);
+    border-radius: 999px;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  .article-card__body h3 {
+    font-size: var(--text-md);
+    color: var(--navy);
+  }
+
+  .article-card__body p {
+    font-size: var(--text-sm);
+    color: var(--charcoal);
+  }
+
+  .article-card__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--charcoal);
+  }
+
+  .article-card__link {
+    color: var(--sky-text);
+    font-weight: 600;
+  }
+</style>

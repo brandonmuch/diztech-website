@@ -1,0 +1,160 @@
+---
+import { getCollection } from "astro:content";
+import SectionHeading from "../ui/SectionHeading.astro";
+import { project, MAP_VIEWBOX } from "../../lib/mapProjection";
+
+const presence = await getCollection("siteData");
+const markers = presence.map((entry) => ({
+  ...entry.data,
+  ...project(entry.data.lat, entry.data.lng),
+}));
+
+// Simplified, stylized Africa continent outline calibrated to the same
+// lat/lng bounding box used by mapProjection.ts, so markers land correctly.
+const africaPath =
+  "M158,26 L336,14 L554,79 L583,93 L700,303 L792,306 L725,419 L663,489 L659,520 L608,674 L567,790 L427,845 L383,708 L368,545 L328,436 L259,364 L220,374 L102,366 L53,302 L28,268 L33,198 L76,128 Z";
+---
+
+<section class="section section--navy africa-map" id="why-choose-us">
+  <div class="container">
+    <SectionHeading
+      heading="Present across Africa"
+      description="From our head office in Zimbabwe, we deliver transformation projects across the continent."
+    />
+
+    <div class="africa-map__layout">
+      <div class="africa-map__svg-wrap" data-reveal>
+        <svg
+          viewBox={`0 0 ${MAP_VIEWBOX.width} ${MAP_VIEWBOX.height}`}
+          role="img"
+          aria-label="Line-art map of Africa showing Diztech's presence in Zimbabwe and Botswana"
+        >
+          <path d={africaPath} class="africa-map__outline" />
+          {
+            markers.map((marker) => (
+              <g class="africa-map__marker-group">
+                <circle
+                  cx={marker.x}
+                  cy={marker.y}
+                  r="14"
+                  class="africa-map__pulse"
+                />
+                <circle
+                  cx={marker.x}
+                  cy={marker.y}
+                  r="6"
+                  class="africa-map__marker"
+                />
+                <title>{marker.label}</title>
+              </g>
+            ))
+          }
+        </svg>
+      </div>
+
+      <ul class="africa-map__legend">
+        {
+          markers.map((marker) => (
+            <li>
+              <span class="africa-map__legend-dot" aria-hidden="true" />
+              <span>
+                <strong>{marker.label}</strong>
+                {marker.isHQ && <span class="africa-map__hq-tag">Head office</span>}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .africa-map__layout {
+    display: grid;
+    gap: var(--space-6);
+    align-items: center;
+  }
+
+  .africa-map__svg-wrap svg {
+    width: 100%;
+    height: auto;
+    max-width: 480px;
+    margin-inline: auto;
+  }
+
+  .africa-map__outline {
+    fill: rgba(3, 185, 241, 0.05);
+    stroke: var(--silver);
+    stroke-width: 2;
+    stroke-linejoin: round;
+  }
+
+  .africa-map__marker {
+    fill: var(--sky);
+    stroke: var(--navy);
+    stroke-width: 1.5;
+  }
+
+  .africa-map__pulse {
+    fill: var(--sky);
+    opacity: 0.35;
+    transform-origin: center;
+    animation: map-pulse 2.4s var(--motion-ease) infinite;
+  }
+
+  @keyframes map-pulse {
+    0% {
+      transform: scale(0.6);
+      opacity: 0.4;
+    }
+    100% {
+      transform: scale(1.6);
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .africa-map__pulse {
+      animation: none;
+      opacity: 0.25;
+    }
+  }
+
+  .africa-map__legend {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .africa-map__legend li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--silver);
+  }
+
+  .africa-map__legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--sky);
+    flex-shrink: 0;
+  }
+
+  .africa-map__hq-tag {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--sky);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  @media (min-width: 1024px) {
+    .africa-map__layout {
+      grid-template-columns: 3fr 2fr;
+    }
+  }
+</style>

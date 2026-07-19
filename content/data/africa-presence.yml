@@ -1,0 +1,15 @@
+presence:
+  - id: zimbabwe-hq
+    country: Zimbabwe
+    city: Harare
+    label: "Zimbabwe — Head Office"
+    lat: -17.8292
+    lng: 31.0522
+    isHQ: true
+  - id: botswana-office
+    country: Botswana
+    city: Gaborone
+    label: "Botswana Office"
+    lat: -24.6282
+    lng: 25.9231
+    isHQ: false

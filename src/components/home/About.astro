@@ -1,0 +1,93 @@
+---
+import { getEntry } from "astro:content";
+import SectionHeading from "../ui/SectionHeading.astro";
+import TonalPlaceholder from "../ui/TonalPlaceholder.astro";
+import { toParagraphs } from "../../lib/renderText";
+
+const entry = await getEntry("home", "about");
+const data = entry!.data as {
+  heading: string;
+  body: string;
+  visionHeading: string;
+  vision: string;
+  image?: string;
+  imageAlt: string;
+};
+
+const paragraphs = toParagraphs(data.body);
+---
+
+<section class="section about" id="about">
+  <div class="container about__grid">
+    <div class="about__text">
+      <SectionHeading heading={data.heading} />
+      {paragraphs.map((p) => <p class="about__paragraph">{p}</p>)}
+
+      <div class="about__vision" data-reveal>
+        <p class="about__vision-label">{data.visionHeading}</p>
+        <p class="about__vision-text">{data.vision}</p>
+      </div>
+    </div>
+
+    <div class="about__media" data-reveal>
+      {
+        data.image ? (
+          <img src={data.image} alt={data.imageAlt} />
+        ) : (
+          <TonalPlaceholder alt={data.imageAlt} variant="abyssal" />
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .about__grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .about__paragraph {
+    margin-top: var(--space-3);
+    max-width: 60ch;
+  }
+
+  .about__vision {
+    margin-top: var(--space-5);
+    padding: var(--space-5);
+    background: var(--navy);
+    border-radius: var(--radius-md);
+  }
+
+  .about__vision-label {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--sky);
+  }
+
+  .about__vision-text {
+    margin-top: var(--space-2);
+    font-family: var(--font-display);
+    font-size: var(--text-md);
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .about__media {
+    aspect-ratio: 4 / 3;
+  }
+
+  .about__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+  }
+
+  @media (min-width: 1024px) {
+    .about__grid {
+      grid-template-columns: 3fr 2fr;
+      align-items: start;
+    }
+  }
+</style>

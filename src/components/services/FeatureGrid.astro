@@ -1,0 +1,52 @@
+---
+interface Props {
+  features: Array<{ title: string; description: string }>;
+}
+
+const { features } = Astro.props;
+---
+
+<ul class="feature-grid">
+  {
+    features.map((feature) => (
+      <li class="feature-grid__item">
+        <h4>{feature.title}</h4>
+        <p>{feature.description}</p>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .feature-grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+    margin-top: var(--space-3);
+  }
+
+  .feature-grid__item {
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--silver);
+  }
+
+  .feature-grid__item h4 {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: var(--text-sm);
+    color: var(--navy);
+  }
+
+  .feature-grid__item p {
+    margin-top: var(--space-1);
+    font-size: var(--text-sm);
+    color: var(--charcoal);
+  }
+
+  @media (min-width: 640px) {
+    .feature-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

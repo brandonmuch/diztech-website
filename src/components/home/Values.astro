@@ -1,0 +1,73 @@
+---
+import { getEntry } from "astro:content";
+import SectionHeading from "../ui/SectionHeading.astro";
+
+const entry = await getEntry("home", "values");
+const data = entry!.data as {
+  eyebrow: string;
+  heading: string;
+  items: Array<{ title: string; description: string; icon: string }>;
+};
+
+const icons: Record<string, string> = {
+  shield:
+    '<path d="M12 2 4 5v6c0 5 3.4 9.3 8 11 4.6-1.7 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/>',
+  handshake:
+    '<path d="m11 17 2 2 5-5"/><path d="M2 12h5l3-3 4 4 4-4h4"/><path d="M2 12v3a2 2 0 0 0 2 2h1"/>',
+  book: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/>',
+  target:
+    '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+};
+---
+
+<section class="section section--wash values" id="values">
+  <div class="container">
+    <SectionHeading eyebrow={data.eyebrow} heading={data.heading} />
+
+    <div class="grid grid--4">
+      {
+        data.items.map((item, i) => (
+          <div class="value-card card" data-reveal style={`transition-delay: ${i * 80}ms`}>
+            <svg
+              class="value-card__icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              set:html={icons[item.icon] ?? icons.target}
+            />
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .value-card {
+    padding: var(--space-5);
+  }
+
+  .value-card__icon {
+    width: 32px;
+    height: 32px;
+    color: var(--sky-text);
+  }
+
+  .value-card h3 {
+    margin-top: var(--space-4);
+    font-size: var(--text-lg);
+    color: var(--navy);
+  }
+
+  .value-card p {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--charcoal);
+  }
+</style>
