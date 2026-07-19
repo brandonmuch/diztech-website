@@ -50,15 +50,44 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  /* Padding scales with the label — width is never fixed, so the button is
-     always as wide as its text needs, per standard responsive button sizing. */
-  padding: var(--space-3) var(--space-5);
-  min-height: 44px; /* WCAG 2.5.5 / Apple HIG touch-target minimum */
+  /* No fixed width/height — the button scales with its text. Padding is a
+     strict 2:1 horizontal:vertical ratio (24px/12px at the 16px base size). */
+  padding: 0.75rem 1.5rem;
+  min-height: 48px;
+  min-width: 48px;
   border-radius: var(--radius-btn);
+  border: none;
+  font-family: inherit;
   font-weight: 600;
-  font-size: var(--text-sm);
+  font-size: 1rem;
+  line-height: 1.2;
   text-decoration: none;
+  cursor: pointer;
   transition: transform var(--motion-fast) var(--motion-ease), background-color var(--motion-fast) var(--motion-ease);
+}
+
+/* Two or more buttons presented as a set of actions: side by side with a
+   12–16px gap on desktop, full-width and stacked (primary first) with a
+   12px gap on mobile so adjacent targets can't be mis-tapped. */
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-group .btn {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .btn-group {
+    flex-direction: row;
+    gap: 14px;
+  }
+
+  .btn-group .btn {
+    width: auto;
+  }
 }
 
 .btn:hover,

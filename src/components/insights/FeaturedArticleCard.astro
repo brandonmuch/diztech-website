@@ -10,7 +10,12 @@ const { article } = Astro.props;
 const { title, category, date, excerpt, image } = article.data;
 ---
 
-<a href={`/insights/${article.id}`} class="featured-card">
+<div
+  class="featured-card"
+  data-open-modal={`article-modal-${article.id}`}
+  role="button"
+  tabindex="0"
+>
   <div class="featured-card__media">
     {
       image ? (
@@ -29,15 +34,16 @@ const { title, category, date, excerpt, image } = article.data;
     </time>
     <span class="btn btn--ghost">Read the full article</span>
   </div>
-</a>
+</div>
 
 <style>
   .featured-card {
     display: grid;
-    text-decoration: none;
     color: inherit;
+    background: var(--white);
     border: 1px solid var(--silver);
     border-radius: var(--radius-md);
+    cursor: pointer;
     overflow: hidden;
     transition: transform var(--motion-base) var(--motion-ease), box-shadow var(--motion-base) var(--motion-ease);
   }

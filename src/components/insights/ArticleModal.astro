@@ -1,0 +1,210 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+import TonalPlaceholder from "../ui/TonalPlaceholder.astro";
+
+interface Props {
+  article: CollectionEntry<"insights">;
+}
+
+const { article } = Astro.props;
+const { title, category, date, image } = article.data;
+const { Content } = await render(article);
+const titleId = `article-modal-title-${article.id}`;
+---
+
+<dialog class="article-modal" id={`article-modal-${article.id}`} aria-labelledby={titleId}>
+  <div class="article-modal__dialog">
+    <button type="button" class="article-modal__close" data-close-modal aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M18 6 6 18M6 6l12 12" />
+      </svg>
+    </button>
+
+    <div class="article-modal__media">
+      {
+        image ? (
+          <img src={image} alt={title} />
+        ) : (
+          <TonalPlaceholder alt={title} variant="abyssal" />
+        )
+      }
+    </div>
+
+    <div class="article-modal__body">
+      <p class="eyebrow">{category}</p>
+      <h2 id={titleId}>{title}</h2>
+      <time datetime={date.toISOString()}>
+        {date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+      </time>
+
+      <div class="article-modal__content">
+        <Content />
+      </div>
+
+      <div class="article-modal__cta">
+        <p>Ready to talk through how this applies to your organisation?</p>
+        <a href="/#contact" class="btn btn--primary">Schedule a Consultation</a>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  .article-modal {
+    position: relative;
+    padding: 0;
+    border: none;
+    border-radius: var(--radius-lg);
+    max-width: min(720px, 92vw);
+    max-height: 88vh;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 24px 64px -16px rgba(11, 31, 58, 0.4);
+  }
+
+  .article-modal::backdrop {
+    background: rgba(11, 31, 58, 0.6);
+  }
+
+  .article-modal[open] {
+    animation: article-modal-in 0.25s var(--motion-ease) forwards;
+  }
+
+  @keyframes article-modal-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .article-modal[open] {
+      animation: none;
+    }
+  }
+
+  .article-modal__dialog {
+    max-height: 88vh;
+    overflow-y: auto;
+  }
+
+  /* Positioned against .article-modal (which doesn't scroll), not
+     .article-modal__dialog (which does) — so the close button stays fixed
+     in the same spot regardless of how far the content is scrolled. */
+  .article-modal__close {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0;
+    border-radius: 999px;
+    background: rgba(11, 31, 58, 0.55);
+    color: var(--white);
+  }
+
+  .article-modal__close:hover,
+  .article-modal__close:focus-visible {
+    background: var(--navy);
+  }
+
+  .article-modal__close svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .article-modal__media {
+    aspect-ratio: 16 / 9;
+  }
+
+  .article-modal__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .article-modal__body {
+    padding: var(--space-6);
+  }
+
+  .article-modal__body h2 {
+    font-size: var(--text-2xl);
+    color: var(--navy);
+    margin-top: var(--space-3);
+  }
+
+  .article-modal__body time {
+    display: block;
+    margin-top: var(--space-2);
+    color: var(--charcoal);
+    font-size: var(--text-sm);
+  }
+
+  .article-modal__content {
+    margin-top: var(--space-5);
+    max-width: 68ch;
+  }
+
+  .article-modal__content :global(h2) {
+    font-size: var(--text-xl);
+    color: var(--navy);
+    margin-top: var(--space-6);
+  }
+
+  .article-modal__content :global(p) {
+    margin-top: var(--space-3);
+    color: var(--charcoal);
+  }
+
+  .article-modal__content :global(ul),
+  .article-modal__content :global(ol) {
+    margin-top: var(--space-3);
+    padding-left: var(--space-5);
+    color: var(--charcoal);
+  }
+
+  .article-modal__content :global(li) {
+    margin-top: var(--space-2);
+  }
+
+  .article-modal__content :global(strong) {
+    color: var(--navy);
+  }
+
+  .article-modal__cta {
+    margin-top: var(--space-7);
+    padding: var(--space-5);
+    background: var(--silver-soft);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: flex-start;
+  }
+
+  .article-modal__cta p {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  @media (min-width: 640px) {
+    .article-modal__cta {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+</style>

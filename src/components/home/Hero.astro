@@ -34,7 +34,7 @@ const data = entry!.data as {
     </p>
     <h1 class="hero__headline" id="hero-headline">{data.headline}</h1>
     <p class="hero__subheadline">{data.subheadline}</p>
-    <div class="hero__actions">
+    <div class="hero__actions btn-group">
       <a href={data.ctaHref} class="btn btn--primary">{data.ctaText}</a>
       <a href={data.secondaryCtaHref} class="btn btn--secondary">{data.secondaryCtaText}</a>
     </div>
@@ -169,9 +169,6 @@ const data = entry!.data as {
   }
 
   .hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-3);
     margin-top: var(--space-6);
     opacity: 0;
     animation: hero-fade-up 0.8s var(--motion-ease) 0.55s forwards;

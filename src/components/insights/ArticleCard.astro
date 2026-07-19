@@ -21,7 +21,13 @@ function hashCode(str: string) {
 }
 ---
 
-<a href={`/insights/${article.id}`} class="article-card card" data-category={category}>
+<div
+  class="article-card card"
+  data-category={category}
+  data-open-modal={`article-modal-${article.id}`}
+  role="button"
+  tabindex="0"
+>
   <div class="article-card__media">
     {
       image ? (
@@ -42,14 +48,14 @@ function hashCode(str: string) {
       <span class="article-card__link">Read more →</span>
     </div>
   </div>
-</a>
+</div>
 
 <style>
   .article-card {
     display: flex;
     flex-direction: column;
-    text-decoration: none;
     color: inherit;
+    cursor: pointer;
     overflow: hidden;
   }
 
