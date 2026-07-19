@@ -77,7 +77,7 @@ const data = entry!.data as {
           <textarea id="message" name="message" rows="4"></textarea>
         </div>
 
-        <button type="submit" class="btn btn--primary">Schedule a Consultation</button>
+        <button type="submit" class="btn btn--primary contact__submit">Schedule a Consultation</button>
 
         <p class="contact__privacy">{data.privacyNote}</p>
       </form>
@@ -109,6 +109,12 @@ const data = entry!.data as {
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
+  }
+
+  /* Form fields stretch to fill the column (normal, desired), but the submit
+     button shouldn't — a button sizes to its text, not its container. */
+  .contact__submit {
+    align-self: flex-start;
   }
 
   .contact__field-row {
