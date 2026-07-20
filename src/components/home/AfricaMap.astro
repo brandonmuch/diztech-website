@@ -3,7 +3,9 @@ import { getCollection } from "astro:content";
 import SectionHeading from "../ui/SectionHeading.astro";
 import { project, MAP_VIEWBOX } from "../../lib/mapProjection";
 
-const presence = await getCollection("siteData");
+const presence = (await getCollection("siteData")).sort(
+  (a, b) => a.data.order - b.data.order
+);
 const markers = presence.map((entry) => ({
   ...entry.data,
   ...project(entry.data.lat, entry.data.lng),
@@ -27,7 +29,7 @@ const africaPath =
         <svg
           viewBox={`0 0 ${MAP_VIEWBOX.width} ${MAP_VIEWBOX.height}`}
           role="img"
-          aria-label="Line-art map of Africa showing Diztech's presence in Zimbabwe and Botswana"
+          aria-label={`Line-art map of Africa showing DizTech's presence across ${markers.length} countries: ${markers.map((m) => m.country).join(", ")}`}
         >
           <path d={africaPath} class="africa-map__outline" />
           {

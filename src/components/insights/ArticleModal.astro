@@ -52,15 +52,25 @@ const titleId = `article-modal-title-${article.id}`;
 
 <style>
   .article-modal {
-    position: relative;
+    /* position: fixed (not relative) is what lets inset: 0 + margin: auto
+       center the dialog in the viewport — relative positioning silently
+       breaks that and leaves it sitting in normal document flow instead. */
+    position: fixed;
+    inset: 0;
+    margin: auto;
     padding: 0;
     border: none;
     border-radius: var(--radius-lg);
-    max-width: min(720px, 92vw);
-    max-height: 88vh;
-    width: 100%;
+    width: min(680px, 92vw);
+    max-height: 85vh;
     overflow: hidden;
     box-shadow: 0 24px 64px -16px rgba(11, 31, 58, 0.4);
+  }
+
+  @media (min-width: 1024px) {
+    .article-modal {
+      width: min(860px, 88vw);
+    }
   }
 
   .article-modal::backdrop {
@@ -89,7 +99,7 @@ const titleId = `article-modal-title-${article.id}`;
   }
 
   .article-modal__dialog {
-    max-height: 88vh;
+    max-height: 85vh;
     overflow-y: auto;
   }
 

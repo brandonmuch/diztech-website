@@ -2,12 +2,12 @@
 title: "5 things we love about project management"
 category: "Project Management"
 date: 2025-08-01
-excerpt: "The Diztech team shares what we love about a career in project management — from travel and collaboration to the constant learning curve."
-image: "/uploads/article-portrait-b.jpg"
+excerpt: "The DizTech team shares what we love about a career in project management — from travel and collaboration to the constant learning curve."
+image: "/uploads/article-portrait-e.jpg"
 featured: false
 ---
 
-We thought we'd share what the Diztech team loves about project management.
+We thought we'd share what the DizTech team loves about project management.
 
 ## 1. You get to travel
 

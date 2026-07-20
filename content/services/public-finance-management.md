@@ -5,7 +5,7 @@ order: 3
 summary: "Public finance management for transparency and accountability."
 overview:
   summary: "We help governments and organizations strengthen accountability and efficiency through Public Finance Management Systems (PFMS)."
-  body: "At Diztech, we help governments and organizations strengthen accountability and efficiency through Public Finance Management Systems (PFMS). PFMS ensures that public resources are planned, allocated, and monitored effectively, supporting transparency, compliance, and sustainable development."
+  body: "At DizTech, we help governments and organizations strengthen accountability and efficiency through Public Finance Management Systems (PFMS). PFMS ensures that public resources are planned, allocated, and monitored effectively, supporting transparency, compliance, and sustainable development."
 challenges:
   summary: "Manual budget processes and fragmented reporting make public fund flows hard to trace and audit."
   body: "Public institutions often manage budgeting, revenue, and expenditure across disconnected systems and manual processes. This makes fund flows difficult to trace, increases the risk of leakage, and slows down financial reporting to stakeholders and regulators. Without real-time monitoring, fiscal discipline is hard to maintain and audits become time-consuming."

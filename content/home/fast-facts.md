@@ -1,5 +1,5 @@
 ---
-heading: "A snapshot of Diztech"
+heading: "A snapshot of DizTech"
 cards:
   - front: "Experience"
     back: "20+ years collective experience in senior management advisory solutions."

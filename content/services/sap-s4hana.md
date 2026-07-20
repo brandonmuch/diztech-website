@@ -4,8 +4,8 @@ icon: "layers"
 order: 1
 summary: "Your pathway to a smarter, faster ERP."
 overview:
-  summary: "At Diztech, we help organizations move to SAP S/4HANA with confidence, giving you a simpler data model, real-time reporting, and a modern interface that makes everyday work easier."
-  body: "At Diztech, we help organizations move to SAP S/4HANA with confidence. Whether you're upgrading from SAP ECC or migrating from another legacy ERP, S/4HANA gives you a simpler data model, real-time reporting, and a modern interface that makes everyday work easier. It can run in the cloud, on-premise, or as a hybrid setup, so it fits the way your business operates. With this flexibility, your business can modernize processes, connect teams more effectively, and prepare for future growth without disruption."
+  summary: "At DizTech, we help organizations move to SAP S/4HANA with confidence, giving you a simpler data model, real-time reporting, and a modern interface that makes everyday work easier."
+  body: "At DizTech, we help organizations move to SAP S/4HANA with confidence. Whether you're upgrading from SAP ECC or migrating from another legacy ERP, S/4HANA gives you a simpler data model, real-time reporting, and a modern interface that makes everyday work easier. It can run in the cloud, on-premise, or as a hybrid setup, so it fits the way your business operates. With this flexibility, your business can modernize processes, connect teams more effectively, and prepare for future growth without disruption."
 challenges:
   summary: "Legacy ERP systems slow teams down with outdated data models, delayed reporting, and rigid deployment options."
   body: "Many organizations are running on outdated ERP systems that were never built for today's pace of business. Complex, fragmented data models slow down reporting and decision-making. Rigid on-premise-only deployments make it hard to scale or adapt. And ageing interfaces reduce user adoption and productivity across finance, HR, supply chain, and operations."

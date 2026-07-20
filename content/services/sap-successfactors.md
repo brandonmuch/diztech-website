@@ -5,7 +5,7 @@ order: 2
 summary: "Smart human capital management for organizational success."
 overview:
   summary: "We support organizations in strengthening their people strategy with SAP SuccessFactors, connecting workforce management with business goals."
-  body: "At Diztech, we support organizations in strengthening their people strategy with SAP SuccessFactors, the cloud-based HR suite that connects workforce management with business goals. SuccessFactors helps companies go beyond basic HR by focusing on employee experience, talent development, and measurable outcomes."
+  body: "At DizTech, we support organizations in strengthening their people strategy with SAP SuccessFactors, the cloud-based HR suite that connects workforce management with business goals. SuccessFactors helps companies go beyond basic HR by focusing on employee experience, talent development, and measurable outcomes."
 challenges:
   summary: "Disconnected HR systems make it hard to track performance, retain talent, or plan for future leadership."
   body: "Many organizations manage employee records, performance, and learning across disconnected tools, making it hard to get a clear picture of workforce health. Recruitment and onboarding can be slow and inconsistent, succession planning is often reactive rather than proactive, and low visibility into engagement makes it difficult to act on retention risks before they become resignations."

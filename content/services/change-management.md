@@ -5,7 +5,7 @@ order: 8
 summary: "Enabling smooth transitions and maximizing adoption for sustainable digital transformation."
 overview:
   summary: "We provide expert change management services that minimize disruption, drive user adoption, and align initiatives with business goals."
-  body: "Organizational Change Management is essential in today's fast-moving digital era, ensuring employees are prepared, transitions are smooth, and adoption rates are high. At Diztech, we provide expert change management services that minimize disruption, drive user adoption, and align every initiative with business goals, helping organizations achieve successful, confident transformation."
+  body: "Organizational Change Management is essential in today's fast-moving digital era, ensuring employees are prepared, transitions are smooth, and adoption rates are high. At DizTech, we provide expert change management services that minimize disruption, drive user adoption, and align every initiative with business goals, helping organizations achieve successful, confident transformation."
 challenges:
   summary: "Without structured change management, transformation projects meet resistance and adoption stalls after go-live."
   body: "New systems and processes often meet resistance when employees aren't prepared for what's changing or why. Without proactive stakeholder engagement, buy-in stays low and rollout stalls. Risk goes unmanaged until it disrupts delivery, and without post-implementation reinforcement, early adoption gains fade as old habits return."

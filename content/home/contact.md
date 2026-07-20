@@ -19,5 +19,5 @@ locations:
     address: "D4 Acacia, Royal Aria, Metlhabeng Ward, Tlokweng, Botswana"
     phone: "+258 841 059 135"
 closingLine: "Let's partner to drive technology-enabled success for your business."
-privacyNote: "Diztech will use the data provided here in accordance with the Privacy Statement. This site is protected by reCAPTCHA."
+privacyNote: "DizTech will use the data provided here in accordance with the Privacy Statement. This site is protected by reCAPTCHA."
 ---

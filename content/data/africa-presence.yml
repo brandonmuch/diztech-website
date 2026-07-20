@@ -1,5 +1,6 @@
 presence:
   - id: zimbabwe-hq
+    order: 1
     country: Zimbabwe
     city: Harare
     label: "Zimbabwe — Head Office"
@@ -7,9 +8,66 @@ presence:
     lng: 31.0522
     isHQ: true
   - id: botswana-office
+    order: 2
     country: Botswana
     city: Gaborone
     label: "Botswana Office"
     lat: -24.6282
     lng: 25.9231
+    isHQ: false
+  - id: ivory-coast
+    order: 3
+    country: "Ivory Coast"
+    city: Abidjan
+    label: "Ivory Coast"
+    lat: 5.36
+    lng: -4.0083
+    isHQ: false
+  - id: nigeria
+    order: 4
+    country: Nigeria
+    city: Abuja
+    label: "Nigeria"
+    lat: 9.0765
+    lng: 7.3986
+    isHQ: false
+  - id: zambia
+    order: 5
+    country: Zambia
+    city: Lusaka
+    label: "Zambia"
+    lat: -15.3875
+    lng: 28.3228
+    isHQ: false
+  - id: malawi
+    order: 6
+    country: Malawi
+    city: Lilongwe
+    label: "Malawi"
+    lat: -13.9626
+    lng: 33.7741
+    isHQ: false
+  - id: eritrea
+    order: 7
+    country: Eritrea
+    city: Asmara
+    label: "Eritrea"
+    lat: 15.3229
+    lng: 38.9251
+    isHQ: false
+  - id: kenya
+    order: 8
+    country: Kenya
+    city: Nairobi
+    label: "Kenya"
+    lat: -1.2921
+    lng: 36.8219
+    isHQ: false
+  - id: mozambique
+    order: 9
+    country: Mozambique
+    city: Maputo
+    label: "Mozambique"
+    lat: -25.9692
+    lng: 32.5732
     isHQ: false

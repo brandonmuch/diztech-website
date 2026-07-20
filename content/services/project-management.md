@@ -5,7 +5,7 @@ order: 7
 summary: "Comprehensive project management solutions customized for your organization."
 overview:
   summary: "We combine proven global practices like Agile, PMI, and PRINCE2 with local expertise to keep initiatives on track."
-  body: "At Diztech, we combine proven global practices like Agile, PMI, and PRINCE2 with local expertise to deliver structured project oversight that keeps initiatives on track, within budget, and aligned to business goals. Whether rolling out new systems, migrating to the cloud, or digitizing operations, our flexible frameworks ensure smooth execution and measurable results, giving organizations the confidence to achieve transformation effectively."
+  body: "At DizTech, we combine proven global practices like Agile, PMI, and PRINCE2 with local expertise to deliver structured project oversight that keeps initiatives on track, within budget, and aligned to business goals. Whether rolling out new systems, migrating to the cloud, or digitizing operations, our flexible frameworks ensure smooth execution and measurable results, giving organizations the confidence to achieve transformation effectively."
 challenges:
   summary: "Without strong governance, ERP and transformation projects drift off budget, off timeline, and off strategy."
   body: "Complex technology projects often struggle with unclear governance, scope that expands without control, and stakeholders who aren't aligned on priorities. Risks go unmanaged until they become delays, and resources are spread thin across competing initiatives. Without a structured PMO, organizations lose visibility into whether projects are actually delivering the outcomes they were meant to."

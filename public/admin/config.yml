@@ -227,6 +227,7 @@ collections:
             widget: "list"
             fields:
               - { label: "ID (unique, no spaces)", name: "id", widget: "string" }
+              - { label: "Display order", name: "order", widget: "number", hint: "Controls the order in the legend list and map — lower numbers first" }
               - { label: "Country", name: "country", widget: "string" }
               - { label: "City", name: "city", widget: "string" }
               - { label: "Marker label", name: "label", widget: "string" }

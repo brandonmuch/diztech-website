@@ -1,7 +1,7 @@
 ---
-heading: "Diztech | Your trusted ERP integration and business consultancy partner"
+heading: "DizTech | Your trusted ERP integration and business consultancy partner"
 body: |
-  At Diztech, we empower organizations across Africa and beyond through business consulting expertise and cutting-edge ERP solutions such as SAP. Our digital footprint spans both private and public sectors, delivering tailored strategies that optimize performance, enhance efficiency, and drive sustainable growth.
+  At DizTech, we empower organizations across Africa and beyond through business consulting expertise and cutting-edge ERP solutions such as SAP. Our digital footprint spans both private and public sectors, delivering tailored strategies that optimize performance, enhance efficiency, and drive sustainable growth.
 
   Our domain expertise covers SAP implementation and support, project and change management, system optimization and data management support, quality assurance, customized training, and business advisory services. With experience across multiple African countries and transformation projects, we have become the trusted partner for organizations pursuing sustainable growth through technology. We help organizations mitigate project risks and achieve measurable returns on their ICT investments.
 

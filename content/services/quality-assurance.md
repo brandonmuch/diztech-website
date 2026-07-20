@@ -5,7 +5,7 @@ order: 9
 summary: "Embedding quality and reliability across every stage of your project lifecycle."
 overview:
   summary: "We embed QA into every phase of the project lifecycle, from requirements to delivery, so projects finish on time and within budget."
-  body: "At Diztech, we embed QA into every phase of the project lifecycle, from requirements to delivery, ensuring standards are met, risks minimized, and compliance achieved so projects finish on time, within budget, and with measurable value."
+  body: "At DizTech, we embed QA into every phase of the project lifecycle, from requirements to delivery, ensuring standards are met, risks minimized, and compliance achieved so projects finish on time, within budget, and with measurable value."
 challenges:
   summary: "Without embedded QA, defects surface late, delivery slips, and stakeholder confidence erodes."
   body: "Projects without embedded quality assurance often discover defects late, when they're most expensive to fix. Inconsistent testing environments produce unreliable results, and without transparent quality metrics, stakeholders lose visibility into whether a project is genuinely on track. The result is slower delivery, higher rework costs, and reduced confidence in what's shipped."
