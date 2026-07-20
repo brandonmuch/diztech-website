@@ -13,8 +13,12 @@ const markers = presence.map((entry) => ({
 
 // Simplified, stylized Africa continent outline calibrated to the same
 // lat/lng bounding box used by mapProjection.ts, so markers land correctly.
+// The West African coastal points (220,374 / 102,366 -> 222,395 / 104,392)
+// were nudged south to actually include the Gulf of Guinea coastline near
+// Abidjan — verified by point-in-polygon testing every marker against this
+// path; the original line put the Ivory Coast marker ~9px outside the shape.
 const africaPath =
-  "M158,26 L336,14 L554,79 L583,93 L700,303 L792,306 L725,419 L663,489 L659,520 L608,674 L567,790 L427,845 L383,708 L368,545 L328,436 L259,364 L220,374 L102,366 L53,302 L28,268 L33,198 L76,128 Z";
+  "M158,26 L336,14 L554,79 L583,93 L700,303 L792,306 L725,419 L663,489 L659,520 L608,674 L567,790 L427,845 L383,708 L368,545 L328,436 L259,364 L222,395 L104,392 L53,302 L28,268 L33,198 L76,128 Z";
 ---
 
 <section class="section section--navy africa-map" id="why-choose-us">
