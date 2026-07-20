@@ -216,6 +216,17 @@ collections:
       - { label: "Show as featured article?", name: "featured", widget: "boolean", default: false }
       - { label: "Body", name: "body", widget: "markdown" }
 
+  - name: "legal"
+    label: "Legal"
+    files:
+      - name: "privacy-policy"
+        label: "Privacy Policy"
+        file: "content/legal/privacy-policy.md"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Last updated", name: "updated", widget: "string", hint: "e.g. 20 July 2026 — shown under the heading in the popup" }
+          - { label: "Body", name: "body", widget: "markdown" }
+
   - name: "site-data"
     label: "Global data"
     files:

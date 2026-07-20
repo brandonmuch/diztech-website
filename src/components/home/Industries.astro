@@ -97,7 +97,9 @@ const icons: Record<string, string> = {
 
   @media (min-width: 1024px) {
     .industries__layout {
-      grid-template-columns: 1fr 1.4fr;
+      /* 1fr left the heading column too narrow for "Industries we serve" at
+         its display size, wrapping it onto two lines unnecessarily. */
+      grid-template-columns: 1.2fr 1fr;
       align-items: start;
     }
   }

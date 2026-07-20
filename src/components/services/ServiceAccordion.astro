@@ -140,8 +140,14 @@ const { title, icon, summary, overview, challenges, approach, features, benefits
   @media (min-width: 640px) {
     .service-block__cta {
       flex-direction: row;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
+    }
+
+    .service-block__cta p {
+      flex: 1 1 auto;
+      min-width: 240px;
     }
   }
 </style>

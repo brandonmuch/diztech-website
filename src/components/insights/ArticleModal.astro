@@ -213,8 +213,14 @@ const titleId = `article-modal-title-${article.id}`;
   @media (min-width: 640px) {
     .article-modal__cta {
       flex-direction: row;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
+    }
+
+    .article-modal__cta p {
+      flex: 1 1 auto;
+      min-width: 240px;
     }
   }
 </style>

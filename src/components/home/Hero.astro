@@ -281,15 +281,16 @@ const data = entry!.data as {
 
   @media (min-width: 768px) {
     .hero__headline {
+      /* text-5xl (76px) forces this headline to wrap across 3 uneven
+         lines at typical desktop widths; text-4xl (61px) lets the browser's
+         own text-wrap: balance settle it into a clean, even 2-line break
+         ("Your transformation" / "is safe in our hands") with no hardcoded
+         line break needed. Verified directly against the rendered text. */
       font-size: var(--text-4xl);
     }
   }
 
   @media (min-width: 1024px) {
-    .hero__headline {
-      font-size: var(--text-5xl);
-    }
-
     .hero__scroll-cue {
       display: block;
     }

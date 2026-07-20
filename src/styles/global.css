@@ -27,7 +27,6 @@
 }
 
 .section-heading {
-  max-width: 46ch;
   margin-bottom: var(--space-6);
 }
 
@@ -35,10 +34,18 @@
   font-size: var(--text-3xl);
 }
 
+/* 46ch belongs on the description (body-sized text, where it's a normal
+   comfortable-reading-length cap) — it was previously set on the whole
+   .section-heading wrapper instead, where ch resolves against that div's
+   own (body-sized) font rather than the much larger h2 inside it. That
+   silently capped every section heading site-wide to ~350-450px regardless
+   of how large the heading text actually was, forcing short headings like
+   "A snapshot of DizTech" to wrap onto two lines for no reason. */
 .section-heading p {
   margin-top: var(--space-3);
   font-size: var(--text-md);
   color: var(--charcoal);
+  max-width: 46ch;
 }
 
 .section--navy .section-heading p {
@@ -51,7 +58,11 @@
   justify-content: center;
   gap: var(--space-2);
   /* No fixed width/height — the button scales with its text. Padding is a
-     strict 2:1 horizontal:vertical ratio (24px/12px at the 16px base size). */
+     strict 2:1 horizontal:vertical ratio (24px/12px at the 16px base size).
+     A button's own label should never wrap internally — if it doesn't fit
+     its flex container, the container should wrap/stack around it instead
+     (see .btn-group and any flex row a .btn sits in alongside other text). */
+  white-space: nowrap;
   padding: 0.75rem 1.5rem;
   min-height: 48px;
   min-width: 48px;

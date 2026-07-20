@@ -84,21 +84,13 @@ const paragraphs = toParagraphs(data.body);
     border-radius: var(--radius-md);
   }
 
-  /* The heading is a long line ("DizTech | Your trusted ERP integration and
-     business consultancy partner") — at the shared .section-heading h2 size
-     it wraps to 4-5 short, unevenly "stacked" lines on tablet/desktop. Give
-     it more room and a size suited to that length, without touching mobile,
-     where the default full-width single-column layout already wraps fine. */
+  /* The heading is an unusually long compound line ("DizTech | Your trusted
+     ERP integration and business consultancy partner") — at the shared
+     .section-heading h2 size it still wraps to 3-4 lines even with the
+     global max-width bug fixed, since the text itself is just long. Sized
+     down for a cleaner 2-line break at tablet/desktop; mobile (full-width
+     single column) already wraps fine untouched. */
   @media (min-width: 640px) {
-    /* .section-heading's global max-width: 46ch is sized against the
-       wrapper's own (body-sized) font, not the much larger heading font —
-       for most section titles that's still generous, but this one is an
-       unusually long compound heading and 46ch caps it to ~366px regardless
-       of how wide the column actually is. Let it use the full column. */
-    .about__text :global(.section-heading) {
-      max-width: none;
-    }
-
     .about__text :global(.section-heading h2) {
       font-size: var(--text-2xl);
       text-wrap: pretty;

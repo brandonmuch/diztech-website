@@ -1,0 +1,157 @@
+---
+import { getEntry, render } from "astro:content";
+
+const entry = await getEntry("legal", "privacy-policy");
+const heading = entry?.data.heading ?? "Privacy policy";
+const updated = entry?.data.updated as string | undefined;
+const { Content } = entry ? await render(entry) : { Content: null };
+---
+
+<button type="button" class="privacy-trigger" data-open-modal="privacy-policy-modal">
+  Privacy Policy
+</button>
+
+<dialog class="privacy-modal" id="privacy-policy-modal" aria-labelledby="privacy-modal-title">
+  <div class="privacy-modal__dialog">
+    <button type="button" class="privacy-modal__close" data-close-modal aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M18 6 6 18M6 6l12 12" />
+      </svg>
+    </button>
+
+    <div class="privacy-modal__body">
+      <h2 id="privacy-modal-title">{heading}</h2>
+      {updated && <p class="privacy-modal__updated">Last updated {updated}</p>}
+      <div class="privacy-modal__content">{Content && <Content />}</div>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  const trigger = document.querySelector<HTMLElement>('[data-open-modal="privacy-policy-modal"]');
+  const modal = document.getElementById("privacy-policy-modal");
+
+  trigger?.addEventListener("click", () => {
+    if (modal instanceof HTMLDialogElement) modal.showModal();
+  });
+
+  modal?.querySelector("[data-close-modal]")?.addEventListener("click", () => {
+    if (modal instanceof HTMLDialogElement) modal.close();
+  });
+
+  modal?.addEventListener("click", (event) => {
+    if (event.target === modal && modal instanceof HTMLDialogElement) modal.close();
+  });
+</script>
+
+<style>
+  .privacy-trigger {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--silver);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-family: inherit;
+    cursor: pointer;
+  }
+
+  .privacy-trigger:hover,
+  .privacy-trigger:focus-visible {
+    color: var(--sky);
+  }
+
+  .privacy-modal {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    padding: 0;
+    border: none;
+    border-radius: var(--radius-lg);
+    width: min(640px, 92vw);
+    max-height: 85vh;
+    overflow: hidden;
+    box-shadow: 0 24px 64px -16px rgba(11, 31, 58, 0.4);
+  }
+
+  .privacy-modal::backdrop {
+    background: rgba(11, 31, 58, 0.6);
+  }
+
+  .privacy-modal__dialog {
+    position: relative;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+
+  .privacy-modal__close {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0;
+    border-radius: 999px;
+    background: var(--silver-soft);
+    color: var(--navy);
+  }
+
+  .privacy-modal__close:hover,
+  .privacy-modal__close:focus-visible {
+    background: var(--silver);
+  }
+
+  .privacy-modal__close svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .privacy-modal__body {
+    padding: var(--space-6);
+  }
+
+  .privacy-modal__body h2 {
+    font-size: var(--text-2xl);
+    color: var(--navy);
+    padding-right: var(--space-7);
+  }
+
+  .privacy-modal__updated {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--charcoal);
+  }
+
+  .privacy-modal__content {
+    margin-top: var(--space-5);
+    max-width: 68ch;
+  }
+
+  .privacy-modal__content :global(h2) {
+    font-size: var(--text-lg);
+    color: var(--navy);
+    margin-top: var(--space-6);
+  }
+
+  .privacy-modal__content :global(p) {
+    margin-top: var(--space-3);
+    color: var(--charcoal);
+  }
+
+  .privacy-modal__content :global(ul),
+  .privacy-modal__content :global(ol) {
+    margin-top: var(--space-3);
+    padding-left: var(--space-5);
+    color: var(--charcoal);
+  }
+
+  .privacy-modal__content :global(li) {
+    margin-top: var(--space-2);
+  }
+</style>

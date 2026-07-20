@@ -6,6 +6,10 @@ const home = defineCollection({
   loader: glob({ pattern: "*.md", base: "content/home" }),
 });
 
+const legal = defineCollection({
+  loader: glob({ pattern: "*.md", base: "content/legal" }),
+});
+
 const services = defineCollection({
   loader: glob({ pattern: "*.md", base: "content/services" }),
   schema: z.object({
@@ -89,4 +93,4 @@ const siteSettings = defineCollection({
   }),
 });
 
-export const collections = { home, services, insights, siteData, siteSettings };
+export const collections = { home, legal, services, insights, siteData, siteSettings };

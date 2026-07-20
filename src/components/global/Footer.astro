@@ -1,5 +1,6 @@
 ---
 import { getEntry } from "astro:content";
+import PrivacyPolicyModal from "./PrivacyPolicyModal.astro";
 
 const settingsEntry = await getEntry("siteSettings", "main");
 const wordmark = settingsEntry?.data.wordmark ?? "DizTech";
@@ -27,6 +28,7 @@ const year = new Date().getFullYear();
         <li><a href="/insights">Insights</a></li>
         <li><a href="/#careers">Careers</a></li>
         <li><a href="/#contact">Schedule a Consultation</a></li>
+        <li><PrivacyPolicyModal /></li>
       </ul>
     </nav>
   </div>
