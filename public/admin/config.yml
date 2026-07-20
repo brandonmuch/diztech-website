@@ -25,6 +25,7 @@ collections:
           - { label: "Secondary CTA link", name: "secondaryCtaHref", widget: "string" }
           - { label: "Background image", name: "image", widget: "image" }
           - { label: "Image alt text", name: "imageAlt", widget: "string" }
+          - { label: "Background video (optional, replaces the image when set)", name: "video", widget: "file", required: false, hint: "MP4, short and muted — used as the hero background instead of the image above." }
 
       - name: "about"
         label: "About"

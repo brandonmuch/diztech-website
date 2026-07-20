@@ -13,13 +13,25 @@ const data = entry!.data as {
   secondaryCtaHref: string;
   image?: string;
   imageAlt: string;
+  video?: string;
 };
 ---
 
 <section class="hero">
   <div class="hero__media">
     {
-      data.image ? (
+      data.video ? (
+        <video
+          autoplay
+          muted
+          loop
+          playsinline
+          poster={data.image}
+          aria-hidden="true"
+        >
+          <source src={data.video} type="video/mp4" />
+        </video>
+      ) : data.image ? (
         <img src={data.image} alt={data.imageAlt} />
       ) : (
         <TonalPlaceholder alt={data.imageAlt} variant="navy" />
@@ -48,7 +60,13 @@ const data = entry!.data as {
 <script>
   const hero = document.querySelector<HTMLElement>(".hero");
   const media = document.querySelector<HTMLElement>(".hero__media");
+  const heroVideo = document.querySelector<HTMLVideoElement>(".hero__media video");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (heroVideo && reduceMotion) {
+    heroVideo.pause();
+    heroVideo.removeAttribute("autoplay");
+  }
 
   if (hero && media && !reduceMotion) {
     let ticking = false;
@@ -95,12 +113,28 @@ const data = entry!.data as {
     will-change: transform;
   }
 
-  .hero__media img {
+  .hero__media img,
+  .hero__media video {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* The source composition places the subject right-of-centre; a narrow
+       mobile viewport center-cropping this landscape media would push him
+       toward — or past — the edge, so mobile favors the right of the frame. */
+    object-position: right center;
+  }
+
+  .hero__media img,
+  .hero__media video {
     transform: scale(1);
     animation: hero-zoom 22s var(--motion-ease) forwards;
+  }
+
+  @media (min-width: 640px) {
+    .hero__media img,
+    .hero__media video {
+      object-position: center;
+    }
   }
 
   @keyframes hero-zoom {
@@ -217,7 +251,8 @@ const data = entry!.data as {
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero__media img {
+    .hero__media img,
+    .hero__media video {
       animation: none;
     }
 

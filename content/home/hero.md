@@ -8,4 +8,5 @@ secondaryCtaText: "Explore Our Services"
 secondaryCtaHref: "/technology-services"
 image: "/uploads/gemini-79wg2i.jpg"
 imageAlt: "A senior executive standing in a sculptural concrete corridor, dusk-lit in deep tonal blue"
+video: "/uploads/hero-executive.mp4"
 ---
