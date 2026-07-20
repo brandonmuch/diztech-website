@@ -84,9 +84,30 @@ const paragraphs = toParagraphs(data.body);
     border-radius: var(--radius-md);
   }
 
+  /* The heading is a long line ("DizTech | Your trusted ERP integration and
+     business consultancy partner") — at the shared .section-heading h2 size
+     it wraps to 4-5 short, unevenly "stacked" lines on tablet/desktop. Give
+     it more room and a size suited to that length, without touching mobile,
+     where the default full-width single-column layout already wraps fine. */
+  @media (min-width: 640px) {
+    /* .section-heading's global max-width: 46ch is sized against the
+       wrapper's own (body-sized) font, not the much larger heading font —
+       for most section titles that's still generous, but this one is an
+       unusually long compound heading and 46ch caps it to ~366px regardless
+       of how wide the column actually is. Let it use the full column. */
+    .about__text :global(.section-heading) {
+      max-width: none;
+    }
+
+    .about__text :global(.section-heading h2) {
+      font-size: var(--text-2xl);
+      text-wrap: pretty;
+    }
+  }
+
   @media (min-width: 1024px) {
     .about__grid {
-      grid-template-columns: 3fr 2fr;
+      grid-template-columns: 2fr 1fr;
       align-items: start;
     }
   }

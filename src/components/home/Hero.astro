@@ -124,8 +124,12 @@ const data = entry!.data as {
     object-position: right center;
   }
 
-  .hero__media img,
-  .hero__media video {
+  /* The zoom animation is image-only. Layering a CSS transform:scale on top
+     of a video that already has its own generated motion (drifting light,
+     dust) forces the browser to resample the video every frame on top of
+     its own upscaled resolution — that compounded resampling is what reads
+     as "shaky, low quality" rather than the video itself being at fault. */
+  .hero__media img {
     transform: scale(1);
     animation: hero-zoom 22s var(--motion-ease) forwards;
   }
@@ -160,6 +164,11 @@ const data = entry!.data as {
     z-index: 1;
     padding-block: var(--space-8) var(--space-8);
     max-width: 50rem;
+    /* .container (shared class) sets margin-inline: auto, which — combined
+       with this narrower max-width — centers the box instead of pinning it
+       to the same left edge every other section's .container uses. Override
+       to keep it flush left. */
+    margin-inline: 0 auto;
   }
 
   .hero__eyebrow {
