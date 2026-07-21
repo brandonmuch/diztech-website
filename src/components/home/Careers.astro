@@ -58,6 +58,16 @@ const data = entry!.data as {
 </section>
 
 <style>
+  /* The subtext is two full sentences; at the shared .section-heading p
+     width (46ch) it wraps to 3 uneven, mid-sentence lines. Widened so it
+     settles into one clean sentence per line instead — verified directly
+     against the rendered text. Has no effect below this width (mobile's
+     own container is already narrower), so nothing to guard with a
+     media query. */
+  .careers :global(.section-heading p:not(.eyebrow)) {
+    max-width: 560px;
+  }
+
   .careers h3 {
     font-size: var(--text-lg);
     color: var(--white);
