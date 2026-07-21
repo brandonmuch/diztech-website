@@ -240,6 +240,7 @@ collections:
             fields:
               - { label: "ID (unique, no spaces)", name: "id", widget: "string" }
               - { label: "Display order", name: "order", widget: "number", hint: "Controls the order in the legend list and map — lower numbers first" }
+              - { label: "Country map code", name: "svgId", widget: "string", hint: "The 2-letter ISO country code (e.g. ZW for Zimbabwe) — must match a country on the Africa map for it to highlight." }
               - { label: "Country", name: "country", widget: "string" }
               - { label: "City", name: "city", widget: "string" }
               - { label: "Marker label", name: "label", widget: "string" }

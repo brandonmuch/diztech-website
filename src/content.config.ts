@@ -71,6 +71,7 @@ const siteData = defineCollection({
   schema: z.object({
     id: z.string(),
     order: z.number(),
+    svgId: z.string(),
     country: z.string(),
     city: z.string(),
     label: z.string(),

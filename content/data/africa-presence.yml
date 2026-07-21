@@ -1,6 +1,7 @@
 presence:
   - id: zimbabwe-hq
     order: 1
+    svgId: ZW
     country: Zimbabwe
     city: Harare
     label: "Zimbabwe — Head Office"
@@ -9,6 +10,7 @@ presence:
     isHQ: true
   - id: botswana-office
     order: 2
+    svgId: BW
     country: Botswana
     city: Gaborone
     label: "Botswana Office"
@@ -17,6 +19,7 @@ presence:
     isHQ: false
   - id: ivory-coast
     order: 3
+    svgId: CI
     country: "Ivory Coast"
     city: Abidjan
     label: "Ivory Coast"
@@ -25,6 +28,7 @@ presence:
     isHQ: false
   - id: nigeria
     order: 4
+    svgId: NG
     country: Nigeria
     city: Abuja
     label: "Nigeria"
@@ -33,6 +37,7 @@ presence:
     isHQ: false
   - id: zambia
     order: 5
+    svgId: ZM
     country: Zambia
     city: Lusaka
     label: "Zambia"
@@ -41,6 +46,7 @@ presence:
     isHQ: false
   - id: malawi
     order: 6
+    svgId: MW
     country: Malawi
     city: Lilongwe
     label: "Malawi"
@@ -49,6 +55,7 @@ presence:
     isHQ: false
   - id: eritrea
     order: 7
+    svgId: ER
     country: Eritrea
     city: Asmara
     label: "Eritrea"
@@ -57,6 +64,7 @@ presence:
     isHQ: false
   - id: kenya
     order: 8
+    svgId: KE
     country: Kenya
     city: Nairobi
     label: "Kenya"
@@ -65,6 +73,7 @@ presence:
     isHQ: false
   - id: mozambique
     order: 9
+    svgId: MZ
     country: Mozambique
     city: Maputo
     label: "Mozambique"

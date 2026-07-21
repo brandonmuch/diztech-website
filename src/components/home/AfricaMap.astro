@@ -1,24 +1,20 @@
 ---
 import { getCollection } from "astro:content";
 import SectionHeading from "../ui/SectionHeading.astro";
-import { project, MAP_VIEWBOX } from "../../lib/mapProjection";
+import africaCountries from "../../lib/africaCountriesData.json";
 
 const presence = (await getCollection("siteData")).sort(
   (a, b) => a.data.order - b.data.order
 );
-const markers = presence.map((entry) => ({
-  ...entry.data,
-  ...project(entry.data.lat, entry.data.lng),
-}));
 
-// Simplified, stylized Africa continent outline calibrated to the same
-// lat/lng bounding box used by mapProjection.ts, so markers land correctly.
-// The West African coastal points (220,374 / 102,366 -> 222,395 / 104,392)
-// were nudged south to actually include the Gulf of Guinea coastline near
-// Abidjan — verified by point-in-polygon testing every marker against this
-// path; the original line put the Ivory Coast marker ~9px outside the shape.
-const africaPath =
-  "M158,26 L336,14 L554,79 L583,93 L700,303 L792,306 L725,419 L663,489 L659,520 L608,674 L567,790 L427,845 L383,708 L368,545 L328,436 L259,364 L222,395 L104,392 L53,302 L28,268 L33,198 L76,128 Z";
+const presenceBySvgId = new Map(presence.map((entry) => [entry.data.svgId, entry.data]));
+
+// Real country outlines (56 African countries, extracted from a MapSVG
+// world dataset and filtered down to the continent — see src/lib/africaCountriesData.json)
+// replace the earlier hand-drawn approximation entirely, so there's no
+// separate marker-projection math to keep in sync with the shape anymore:
+// a country is either filled in as a presence country or it isn't.
+const countries = africaCountries as Array<{ id: string; title: string; d: string }>;
 ---
 
 <section class="section section--navy africa-map" id="why-choose-us">
@@ -31,41 +27,34 @@ const africaPath =
     <div class="africa-map__layout">
       <div class="africa-map__svg-wrap" data-reveal>
         <svg
-          viewBox={`0 0 ${MAP_VIEWBOX.width} ${MAP_VIEWBOX.height}`}
+          viewBox="0 0 239.06 217.32"
           role="img"
-          aria-label={`Line-art map of Africa showing DizTech's presence across ${markers.length} countries: ${markers.map((m) => m.country).join(", ")}`}
+          aria-label={`Map of Africa with DizTech's presence highlighted across ${presence.length} countries: ${presence.map((p) => p.data.country).join(", ")}`}
         >
-          <path d={africaPath} class="africa-map__outline" />
           {
-            markers.map((marker) => (
-              <g class="africa-map__marker-group">
-                <circle
-                  cx={marker.x}
-                  cy={marker.y}
-                  r="14"
-                  class="africa-map__pulse"
-                />
-                <circle
-                  cx={marker.x}
-                  cy={marker.y}
-                  r="6"
-                  class="africa-map__marker"
-                />
-                <title>{marker.label}</title>
-              </g>
-            ))
+            countries.map((country) => {
+              const entry = presenceBySvgId.get(country.id);
+              return (
+                <path
+                  d={country.d}
+                  class={entry ? "africa-map__country africa-map__country--presence" : "africa-map__country"}
+                >
+                  <title>{entry ? entry.label : country.title}</title>
+                </path>
+              );
+            })
           }
         </svg>
       </div>
 
       <ul class="africa-map__legend">
         {
-          markers.map((marker) => (
+          presence.map((entry) => (
             <li>
               <span class="africa-map__legend-dot" aria-hidden="true" />
               <span>
-                <strong>{marker.label}</strong>
-                {marker.isHQ && <span class="africa-map__hq-tag">Head office</span>}
+                <strong>{entry.data.label}</strong>
+                {entry.data.isHQ && <span class="africa-map__hq-tag">Head office</span>}
               </span>
             </li>
           ))
@@ -89,42 +78,23 @@ const africaPath =
     margin-inline: auto;
   }
 
-  .africa-map__outline {
-    fill: rgba(3, 185, 241, 0.05);
-    stroke: var(--silver);
-    stroke-width: 2;
+  .africa-map__country {
+    fill: rgba(255, 255, 255, 0.06);
+    stroke: rgba(230, 234, 238, 0.35);
+    stroke-width: 0.4;
     stroke-linejoin: round;
   }
 
-  .africa-map__marker {
+  .africa-map__country--presence {
     fill: var(--sky);
-    stroke: var(--navy);
-    stroke-width: 1.5;
+    stroke: var(--white);
+    stroke-width: 0.5;
+    transition: fill var(--motion-fast) var(--motion-ease);
   }
 
-  .africa-map__pulse {
-    fill: var(--sky);
-    opacity: 0.35;
-    transform-origin: center;
-    animation: map-pulse 2.4s var(--motion-ease) infinite;
-  }
-
-  @keyframes map-pulse {
-    0% {
-      transform: scale(0.6);
-      opacity: 0.4;
-    }
-    100% {
-      transform: scale(1.6);
-      opacity: 0;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .africa-map__pulse {
-      animation: none;
-      opacity: 0.25;
-    }
+  .africa-map__country--presence:hover,
+  .africa-map__country--presence:focus-visible {
+    fill: var(--white);
   }
 
   .africa-map__legend {
