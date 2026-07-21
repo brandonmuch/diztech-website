@@ -64,8 +64,15 @@ h1 {
   font-weight: 700;
 }
 
+/* balance (not pretty) — pretty only avoids a lone orphan word on the last
+   line, it doesn't try to even out line lengths at all, which is why short
+   paragraphs (subheadlines, intro copy) were reading as visually ragged.
+   balance actually rebalances every line; browsers cap it to a handful of
+   lines for performance and silently fall back to normal wrap beyond that,
+   so it's safe on long article body copy too — short paragraphs are the
+   ones that actually benefit. */
 p {
-  text-wrap: pretty;
+  text-wrap: balance;
 }
 
 /* Visible keyboard focus everywhere — accessibility floor */
