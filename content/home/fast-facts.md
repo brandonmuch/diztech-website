@@ -5,7 +5,7 @@ cards:
     back: "20+ years collective experience in senior management advisory solutions."
     icon: "clock"
   - front: "Affiliations"
-    back: "SAP Business Development Partner of the Year, 2004. Africa Region nominee, 2006."
+    back: "2004 SAP Business Development Partner of the Year Award. 2006 SAP Business Development Partner Award Nominee, Africa Region."
     icon: "award"
   - front: "Industries"
     back: "10+ industry verticals, spanning the public and private sectors."

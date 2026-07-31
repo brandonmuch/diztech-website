@@ -1,0 +1,116 @@
+---
+import { getEntry } from "astro:content";
+import SectionHeading from "../ui/SectionHeading.astro";
+
+const entry = await getEntry("home", "clients");
+const data = entry!.data as {
+  heading: string;
+  intro: string;
+  logos: Array<{ name: string; logo?: string }>;
+};
+
+// Duplicated once so the CSS marquee can loop seamlessly regardless of list length.
+const track = [...data.logos, ...data.logos];
+---
+
+<section class="section clients">
+  <div class="container">
+    <SectionHeading heading={data.heading} description={data.intro} />
+  </div>
+
+  <div class="clients__marquee" data-reveal>
+    <div class="clients__track">
+      {
+        track.map((client) => (
+          <div class="clients__item">
+            {client.logo ? (
+              <img src={client.logo} alt={client.name} loading="lazy" />
+            ) : (
+              <span class="clients__wordmark">{client.name}</span>
+            )}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .clients {
+    overflow: hidden;
+  }
+
+  .clients__marquee {
+    margin-top: var(--space-6);
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .clients__track {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    gap: var(--space-7);
+    animation: clients-scroll 28s linear infinite;
+  }
+
+  .clients__marquee:hover .clients__track {
+    animation-play-state: paused;
+  }
+
+  .clients__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .clients__item img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(1);
+    opacity: 0.7;
+    transition: opacity var(--motion-fast) var(--motion-ease), filter var(--motion-fast) var(--motion-ease);
+  }
+
+  .clients__item img:hover {
+    filter: none;
+    opacity: 1;
+  }
+
+  .clients__wordmark {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    opacity: 0.6;
+    white-space: nowrap;
+    transition: opacity var(--motion-fast) var(--motion-ease), color var(--motion-fast) var(--motion-ease);
+  }
+
+  .clients__wordmark:hover {
+    opacity: 1;
+    color: var(--navy);
+  }
+
+  @keyframes clients-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      /* Track is the list duplicated once, so -50% is exactly one full set — the loop point is invisible. */
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .clients__track {
+      animation: none;
+      flex-wrap: wrap;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

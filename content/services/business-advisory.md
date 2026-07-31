@@ -3,15 +3,29 @@ title: "Business Advisory Services"
 icon: "briefcase"
 order: 6
 summary: "ERP reviews, optimisation, and strategic growth advisory."
+image: "/uploads/gemini-5y8mzp.jpg"
+imageAlt: "Duotone detail of woven texture, stone, and brushed metal"
 overview:
   summary: "We support both new clients selecting an ERP system and existing SAP customers optimising the one they have."
-  body: "ERP systems are powerful enablers of efficiency and insight, but without regular review and optimisation, they can drift away from delivering their full potential. Our Business Advisory Services are designed to support both new clients and existing SAP customers, helping new clients define their needs and select the right system, while ensuring existing customers optimise their current ERP to realise maximum benefits."
+  bullets:
+    - "ERP systems are powerful enablers of efficiency and insight, but without regular review and optimisation they can drift from delivering their full potential."
+    - "We support both new clients and existing SAP customers."
+    - "New clients get help defining their needs and selecting the right system."
+    - "Existing customers get support optimising their current ERP to realise maximum benefits."
 challenges:
   summary: "ERP systems drift from their original design without regular health checks, leaving value on the table."
-  body: "New clients often struggle to define requirements clearly enough to select the right ERP platform, risking a costly mismatch between system and business need. Existing customers, meanwhile, frequently find their ERP configuration has drifted over time — misconfiguration, poor data quality, or license inefficiencies quietly erode the return on their original investment, often without anyone noticing until costs climb or performance drops."
+  bullets:
+    - "New clients often struggle to define requirements clearly enough to select the right ERP platform, risking a costly mismatch between system and business need."
+    - "Existing customers frequently find their ERP configuration has drifted over time."
+    - "Misconfiguration, poor data quality, or license inefficiencies quietly erode the return on the original investment."
+    - "This often goes unnoticed until costs climb or performance drops."
 approach:
   summary: "Independent, objective advisory covering everything from needs definition to ongoing optimisation."
-  body: "We start with a comprehensive review of current processes, challenges, and opportunities, then move to clear identification of business requirements so any ERP solution aligns with strategic goals. For new clients, this includes independent guidance to evaluate, compare, and select the right platform, plus support through vendor negotiations, licensing, and acquisition. For existing customers, we run proactive health checks and optimisation reviews of configuration, user licenses, and data quality, paired with structured change management support to help employees adapt confidently."
+  bullets:
+    - "We start with a comprehensive review of current processes, challenges, and opportunities."
+    - "We clearly identify business requirements so any ERP solution aligns with strategic goals."
+    - "For new clients: independent guidance to evaluate, compare, and select the right platform, plus support through vendor negotiations, licensing, and acquisition."
+    - "For existing customers: proactive health checks and optimisation reviews of configuration, user licenses, and data quality, paired with structured change management support."
 features:
   - title: "Business reviews & analysis"
     description: "Comprehensive assessments of current processes, challenges, and opportunities."
@@ -27,7 +41,13 @@ features:
     description: "Reviews and adjustments to configuration, licenses, and data quality."
 benefits:
   summary: "Maximised ERP value, reduced costs, and a system that stays aligned with your priorities."
-  body: "Systems are continuously optimised to deliver full return on investment, with configuration and license management lowering long-term expenses. Eliminating bottlenecks improves efficiency and speeds up operations, and your ERP evolves with your business priorities and compliance needs. Health checks and governance advisory reduce exposure to compliance risk, and continuous improvement keeps your ERP a driver of innovation and sustainable growth."
+  bullets:
+    - "Maximised ERP value — systems are continuously optimised to deliver full return on investment."
+    - "Reduced costs — configuration and license management lower long-term expenses."
+    - "Improved efficiency — eliminating bottlenecks speeds up operations."
+    - "Strategic alignment — your ERP evolves with your business priorities and compliance needs."
+    - "Reduced compliance risk — health checks and governance advisory limit exposure."
+    - "Sustainable growth — continuous improvement keeps your ERP a driver of innovation."
 whyChooseUs:
   - icon: "compass"
     title: "Dual focus"

@@ -70,7 +70,7 @@ const services = (await getCollection("services")).sort(
     /* Must match the site header's actual rendered height, which differs by
        breakpoint (mobile header has no CTA button, so it's shorter) —
        otherwise the nav sticks partly underneath the header on one size. */
-    top: 74px; /* mobile header, measured ~73px */
+    top: 86px; /* mobile header, measured ~73px + larger logo */
     z-index: 40;
     background: var(--white);
     border-bottom: 1px solid var(--silver);
@@ -114,7 +114,7 @@ const services = (await getCollection("services")).sort(
   @media (min-width: 1024px) {
     .service-nav {
       /* Desktop header is taller (it also shows the nav links + CTA button). */
-      top: 89px;
+      top: 101px;
     }
 
     .service-nav__list {

@@ -3,15 +3,27 @@ title: "Public Finance Management"
 icon: "landmark"
 order: 3
 summary: "Public finance management for transparency and accountability."
+image: "/uploads/gemini-x76nlr.jpg"
+imageAlt: "Duotone architectural detail representing institutional governance"
 overview:
   summary: "We help governments and organizations strengthen accountability and efficiency through Public Finance Management Systems (PFMS)."
-  body: "At DizTech, we help governments and organizations strengthen accountability and efficiency through Public Finance Management Systems (PFMS). PFMS ensures that public resources are planned, allocated, and monitored effectively, supporting transparency, compliance, and sustainable development."
+  bullets:
+    - "PFMS helps governments and organizations strengthen accountability and efficiency in how public resources are managed."
+    - "It ensures public resources are planned, allocated, and monitored effectively."
+    - "It supports transparency, compliance, and sustainable development."
 challenges:
   summary: "Manual budget processes and fragmented reporting make public fund flows hard to trace and audit."
-  body: "Public institutions often manage budgeting, revenue, and expenditure across disconnected systems and manual processes. This makes fund flows difficult to trace, increases the risk of leakage, and slows down financial reporting to stakeholders and regulators. Without real-time monitoring, fiscal discipline is hard to maintain and audits become time-consuming."
+  bullets:
+    - "Public institutions often manage budgeting, revenue, and expenditure across disconnected systems and manual processes."
+    - "This makes fund flows difficult to trace and increases the risk of leakage."
+    - "It slows down financial reporting to stakeholders and regulators."
+    - "Without real-time monitoring, fiscal discipline is hard to maintain and audits become time-consuming."
 approach:
   summary: "We implement PFMS with automated audit trails and direct integration into banking and treasury systems."
-  body: "We configure PFMS around your budgeting cycle and reporting obligations, with automated audit trails built in from the start. Integration with core banking and treasury systems ensures fund transfers are smooth and traceable, and dashboards give policymakers real-time visibility into budgets, receipts, and expenditure."
+  bullets:
+    - "We configure PFMS around your budgeting cycle and reporting obligations, with automated audit trails built in from the start."
+    - "Integration with core banking and treasury systems ensures fund transfers are smooth and traceable."
+    - "Dashboards give policymakers real-time visibility into budgets, receipts, and expenditure."
 features:
   - title: "Budgeting & Planning"
     description: "Prepare, allocate, and monitor budgets with accuracy."
@@ -29,7 +41,15 @@ features:
     description: "Measure outcomes against objectives for better decision-making."
 benefits:
   summary: "Transparent fund flows, real-time monitoring, and built-in compliance."
-  body: "With PFMS, every transaction is traceable, reducing leakages and building public trust. Budgets, receipts, and expenditures are tracked instantly for better fiscal discipline, and seamless linkages with core banking systems ensure smooth fund transfers. Direct Benefit Transfer (DBT) sends payments straight to beneficiaries, cutting out intermediaries and delays. Automated audit trails and reporting simplify regulatory alignment, efficient resource use prevents idle funds and reduces borrowing costs, and the system scales to support central, state, and local programs across multiple sectors. Real-time dashboards and reports help policymakers act with confidence."
+  bullets:
+    - "Transparent fund flows — every transaction is traceable, reducing leakages and building public trust."
+    - "Real-time monitoring — budgets, receipts, and expenditures are tracked instantly for better fiscal discipline."
+    - "Integration with banks and treasury — seamless linkages with core banking systems ensure smooth fund transfers."
+    - "Direct Benefit Transfer (DBT) — payments go straight to beneficiaries, cutting out intermediaries and delays."
+    - "Compliance built in — automated audit trails and reporting simplify regulatory alignment."
+    - "Efficient resource use — prevents idle funds and reduces borrowing costs."
+    - "Scalable for schemes — supports central, state, and local programs across multiple sectors."
+    - "Decision support — real-time dashboards and reports help policymakers act with confidence."
 whyChooseUs:
   - icon: "eye"
     title: "Transparent fund flows"

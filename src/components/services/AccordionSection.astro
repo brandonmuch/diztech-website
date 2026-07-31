@@ -5,12 +5,12 @@ interface Props {
   id: string;
   title: string;
   summary?: string;
-  body?: string;
+  bullets?: string[];
   open?: boolean;
   wide?: boolean;
 }
 
-const { id, title, summary, body, open = false, wide = false } = Astro.props;
+const { id, title, summary, bullets, open = false, wide = false } = Astro.props;
 ---
 
 <details class="accordion-section" id={id} open={open}>
@@ -21,7 +21,7 @@ const { id, title, summary, body, open = false, wide = false } = Astro.props;
     </svg>
   </summary>
   <div class:list={["accordion-content", { "accordion-content--wide": wide }]}>
-    {summary && body ? <ReadMoreReveal summary={summary} body={body} id={id} /> : <slot />}
+    {summary && bullets ? <ReadMoreReveal summary={summary} bullets={bullets} id={id} /> : <slot />}
   </div>
 </details>
 

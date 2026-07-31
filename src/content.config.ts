@@ -17,13 +17,15 @@ const services = defineCollection({
     icon: z.string(),
     order: z.number(),
     summary: z.string(),
-    overview: z.object({ summary: z.string(), body: z.string() }),
-    challenges: z.object({ summary: z.string(), body: z.string() }),
-    approach: z.object({ summary: z.string(), body: z.string() }),
+    image: z.string(),
+    imageAlt: z.string(),
+    overview: z.object({ summary: z.string(), bullets: z.array(z.string()).min(2) }),
+    challenges: z.object({ summary: z.string(), bullets: z.array(z.string()).min(2) }),
+    approach: z.object({ summary: z.string(), bullets: z.array(z.string()).min(2) }),
     features: z.array(
       z.object({ title: z.string(), description: z.string() })
     ),
-    benefits: z.object({ summary: z.string(), body: z.string() }),
+    benefits: z.object({ summary: z.string(), bullets: z.array(z.string()).min(2) }),
     whyChooseUs: z
       .array(
         z.object({ icon: z.string(), title: z.string(), text: z.string() })

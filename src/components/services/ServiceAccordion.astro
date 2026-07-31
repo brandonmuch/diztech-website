@@ -13,26 +13,42 @@ interface Props {
 }
 
 const { service, allServices, index } = Astro.props;
-const { title, icon, summary, overview, challenges, approach, features, benefits, whyChooseUs, relatedServices, cta } =
-  service.data;
+const {
+  title,
+  icon,
+  summary,
+  image,
+  imageAlt,
+  overview,
+  challenges,
+  approach,
+  features,
+  benefits,
+  whyChooseUs,
+  relatedServices,
+  cta,
+} = service.data;
 ---
 
 <article class="service-block" id={service.id} data-reveal>
   <header class="service-block__hero">
-    <svg
-      class="service-block__icon"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      aria-hidden="true"
-      set:html={icons[icon] ?? icons[defaultIconKey]}
-    />
     <div class="service-block__text">
+      <svg
+        class="service-block__icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        set:html={icons[icon] ?? icons[defaultIconKey]}
+      />
       <h2>{title}</h2>
       <p class="service-block__tagline">{summary}</p>
+    </div>
+    <div class="service-block__media">
+      <img src={image} alt={imageAlt} loading="lazy" />
     </div>
   </header>
 
@@ -41,20 +57,20 @@ const { title, icon, summary, overview, challenges, approach, features, benefits
       id={`${service.id}-overview`}
       title="Service overview"
       summary={overview.summary}
-      body={overview.body}
+      bullets={overview.bullets}
       open={index === 0}
     />
     <AccordionSection
       id={`${service.id}-challenges`}
       title="Business challenges we solve"
       summary={challenges.summary}
-      body={challenges.body}
+      bullets={challenges.bullets}
     />
     <AccordionSection
       id={`${service.id}-approach`}
       title="Our approach"
       summary={approach.summary}
-      body={approach.body}
+      bullets={approach.bullets}
     />
 
     <AccordionSection id={`${service.id}-features`} title="Key features / capabilities" wide>
@@ -65,7 +81,7 @@ const { title, icon, summary, overview, challenges, approach, features, benefits
       id={`${service.id}-benefits`}
       title="Benefits to your organisation"
       summary={benefits.summary}
-      body={benefits.body}
+      bullets={benefits.bullets}
     />
 
     <AccordionSection id={`${service.id}-why-choose`} title="Why choose DizTech" wide>
@@ -88,24 +104,44 @@ const { title, icon, summary, overview, challenges, approach, features, benefits
   }
 
   .service-block__hero {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-4);
+    display: grid;
+    gap: var(--space-5);
     margin-bottom: var(--space-5);
   }
 
   .service-block__icon {
+    display: block;
     width: 40px;
     height: 40px;
     color: var(--sky-text);
+    margin-bottom: var(--space-3);
     flex-shrink: 0;
   }
 
   .service-block__text {
-    /* Flex children default to min-width:auto, which stops them shrinking
+    /* Grid children default to min-width:auto, which stops them shrinking
        below their content's intrinsic width — the actual cause of the
        tagline overflowing the viewport at narrow widths. */
     min-width: 0;
+  }
+
+  .service-block__media {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .service-block__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (min-width: 1024px) {
+    .service-block__hero {
+      grid-template-columns: 3fr 2fr;
+      align-items: center;
+    }
   }
 
   .service-block__hero h2 {

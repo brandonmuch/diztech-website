@@ -2,8 +2,6 @@
 eyebrow: "Careers"
 heading: "Shape the future of ERP implementation"
 subtext: "We deliver locally relevant ERP solutions that transform businesses. Join a team committed to innovation and measurable impact."
-ctaText: "View Open Positions"
-ctaHref: "mailto:careers@diztech.co.zw"
 whyWorkWithUs:
   - title: "Professional growth"
     description: "Advance your career with high-impact projects, mentorship, and adaptive learning."
@@ -16,6 +14,6 @@ whyWorkWithUs:
 openings:
   - title: "SAP SuccessFactors Consultant (S/4HANA)"
     description: "Delivering SAP SuccessFactors Performance and Goal Management implementations."
-howToApply: "Send your CV and relevant certifications to careers@diztech.co.zw. Include the role title in the subject line. Applications are reviewed on a rolling basis."
+howToApply: "Complete the application form below and attach your CV. Applications are reviewed on a rolling basis."
 closingLine: "Want to join the team? Reach out — we value proactive talent."
 ---

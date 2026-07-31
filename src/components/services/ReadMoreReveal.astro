@@ -1,16 +1,15 @@
 ---
-import { toParagraphs, wordCount } from "../../lib/renderText";
+import { wordCount } from "../../lib/renderText";
 
 interface Props {
   summary: string;
-  body: string;
+  bullets: string[];
   id: string;
   threshold?: number;
 }
 
-const { summary, body, id, threshold = 90 } = Astro.props;
-const needsReveal = wordCount(body) > threshold;
-const paragraphs = toParagraphs(body);
+const { summary, bullets, id, threshold = 60 } = Astro.props;
+const needsReveal = wordCount(bullets.join(" ")) > threshold;
 ---
 
 <div class="read-more">
@@ -27,12 +26,14 @@ const paragraphs = toParagraphs(body);
         >
           Read more
         </button>
-        <div class="read-more__full" id={`${id}-full`}>
-          {paragraphs.map((p) => <p>{p}</p>)}
-        </div>
+        <ul class="read-more__full" id={`${id}-full`}>
+          {bullets.map((b) => <li>{b}</li>)}
+        </ul>
       </>
     ) : (
-      paragraphs.map((p) => <p>{p}</p>)
+      <ul class="read-more__full read-more__full--static">
+        {bullets.map((b) => <li>{b}</li>)}
+      </ul>
     )
   }
 </div>
@@ -42,8 +43,17 @@ const paragraphs = toParagraphs(body);
     font-weight: 500;
   }
 
-  .read-more__full p {
+  .read-more__full {
     margin-top: var(--space-3);
+    padding-left: var(--space-5);
+  }
+
+  .read-more__full li {
+    margin-top: var(--space-2);
+  }
+
+  .read-more__full li::marker {
+    color: var(--sky-text);
   }
 
   .read-more__trigger {

@@ -3,15 +3,28 @@ title: "Quality Assurance Services"
 icon: "check-circle"
 order: 9
 summary: "Embedding quality and reliability across every stage of your project lifecycle."
+image: "/uploads/article-arch-a.jpg"
+imageAlt: "Duotone detail of a sculptural concrete stairwell at dusk"
 overview:
   summary: "We embed QA into every phase of the project lifecycle, from requirements to delivery, so projects finish on time and within budget."
-  body: "At DizTech, we embed QA into every phase of the project lifecycle, from requirements to delivery, ensuring standards are met, risks minimized, and compliance achieved so projects finish on time, within budget, and with measurable value."
+  bullets:
+    - "We embed QA into every phase of the project lifecycle, from requirements to delivery."
+    - "Standards are met, risks minimized, and compliance achieved."
+    - "Projects finish on time, within budget, and with measurable value."
 challenges:
   summary: "Without embedded QA, defects surface late, delivery slips, and stakeholder confidence erodes."
-  body: "Projects without embedded quality assurance often discover defects late, when they're most expensive to fix. Inconsistent testing environments produce unreliable results, and without transparent quality metrics, stakeholders lose visibility into whether a project is genuinely on track. The result is slower delivery, higher rework costs, and reduced confidence in what's shipped."
+  bullets:
+    - "Projects without embedded quality assurance often discover defects late, when they're most expensive to fix."
+    - "Inconsistent testing environments produce unreliable results."
+    - "Without transparent quality metrics, stakeholders lose visibility into whether a project is genuinely on track."
+    - "The result is slower delivery, higher rework costs, and reduced confidence in what's shipped."
 approach:
   summary: "A global QA delivery model with QA embedded into Agile, DevOps, and traditional lifecycles alike."
-  body: "We operate a global QA delivery model with onshore and offshore teams, maintaining transparent communication through regular quality audits and feedback. QA is built into Agile, DevOps, and traditional project lifecycles rather than bolted on at the end, and we collaborate closely with project teams and stakeholders to drive measurable outcomes, backed by 13+ years of QA experience."
+  bullets:
+    - "We operate a global QA delivery model with onshore and offshore teams."
+    - "We maintain transparent communication through regular quality audits and feedback."
+    - "QA is built into Agile, DevOps, and traditional project lifecycles rather than bolted on at the end."
+    - "We collaborate closely with project teams and stakeholders to drive measurable outcomes, backed by 13+ years of QA experience."
 features:
   - title: "QA strategy & planning"
     description: "Define project-specific quality goals, governance models, and KPIs from the outset."
@@ -31,7 +44,13 @@ features:
     description: "Validating systems against required standards."
 benefits:
   summary: "Fewer defects, faster delivery, and stronger stakeholder confidence."
-  body: "Stable, high-performing solutions see 40% fewer post-release defects, and automation combined with streamlined QA delivers 30% faster time-to-market. Preventing defects early leads to 25% savings on rework, while stronger teamwork and knowledge sharing improve collaboration across QA and development. Transparent dashboards and regular audits build stakeholder confidence, and lessons learned alongside tracked metrics drive continuous improvement."
+  bullets:
+    - "Improved reliability — stable, high-performing solutions with 40% fewer post-release defects."
+    - "Accelerated delivery — 30% faster time-to-market through automation and streamlined QA."
+    - "Cost efficiency — 25% savings on rework by preventing defects early."
+    - "Enhanced collaboration — stronger teamwork and knowledge sharing across QA and development."
+    - "Stakeholder confidence — transparent dashboards and regular audits build trust."
+    - "Continuous improvement — lessons learned and tracked metrics drive ongoing enhancements."
 whyChooseUs:
   - icon: "globe"
     title: "Global QA delivery model"

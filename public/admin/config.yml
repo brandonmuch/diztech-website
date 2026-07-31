@@ -74,8 +74,6 @@ collections:
           - { label: "Eyebrow", name: "eyebrow", widget: "string" }
           - { label: "Heading", name: "heading", widget: "string" }
           - { label: "Subtext", name: "subtext", widget: "text" }
-          - { label: "CTA text", name: "ctaText", widget: "string" }
-          - { label: "CTA link", name: "ctaHref", widget: "string" }
           - label: "Why work with us"
             name: "whyWorkWithUs"
             widget: "list"
@@ -85,6 +83,7 @@ collections:
           - label: "Current openings"
             name: "openings"
             widget: "list"
+            hint: "Feeds the 'Position applied for' dropdown on the application form below. Leave empty and the dropdown will show 'Roles currently unavailable'."
             fields:
               - { label: "Role title", name: "title", widget: "string" }
               - { label: "Description", name: "description", widget: "text" }
@@ -124,6 +123,19 @@ collections:
               - { label: "Name", name: "name", widget: "string" }
               - { label: "Icon", name: "icon", widget: "string" }
 
+      - name: "clients"
+        label: "Clients"
+        file: "content/home/clients.md"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Intro", name: "intro", widget: "text" }
+          - label: "Client logos"
+            name: "logos"
+            widget: "list"
+            fields:
+              - { label: "Client name", name: "name", widget: "string" }
+              - { label: "Logo image (leave blank to show the name as text)", name: "logo", widget: "image", required: false }
+
   - name: "services"
     label: "Services"
     folder: "content/services"
@@ -134,24 +146,26 @@ collections:
       - { label: "Icon", name: "icon", widget: "string" }
       - { label: "Nav order", name: "order", widget: "number" }
       - { label: "Teaser summary", name: "summary", widget: "text" }
+      - { label: "Image", name: "image", widget: "image" }
+      - { label: "Image alt text", name: "imageAlt", widget: "string" }
       - label: "Service overview"
         name: "overview"
         widget: "object"
         fields:
           - { label: "Summary", name: "summary", widget: "text" }
-          - { label: "Full detail", name: "body", widget: "text" }
+          - { label: "Bullets", name: "bullets", widget: "list", hint: "Shown as a bullet list, not a paragraph — keep each point short." }
       - label: "Business challenges we solve"
         name: "challenges"
         widget: "object"
         fields:
           - { label: "Summary", name: "summary", widget: "text" }
-          - { label: "Full detail", name: "body", widget: "text" }
+          - { label: "Bullets", name: "bullets", widget: "list", hint: "Shown as a bullet list, not a paragraph — keep each point short." }
       - label: "Our approach"
         name: "approach"
         widget: "object"
         fields:
           - { label: "Summary", name: "summary", widget: "text" }
-          - { label: "Full detail", name: "body", widget: "text" }
+          - { label: "Bullets", name: "bullets", widget: "list", hint: "Shown as a bullet list, not a paragraph — keep each point short." }
       - label: "Key features / capabilities"
         name: "features"
         widget: "list"
@@ -163,7 +177,7 @@ collections:
         widget: "object"
         fields:
           - { label: "Summary", name: "summary", widget: "text" }
-          - { label: "Full detail", name: "body", widget: "text" }
+          - { label: "Bullets", name: "bullets", widget: "list", hint: "Shown as a bullet list, not a paragraph — keep each point short." }
       - label: "Why choose DizTech"
         name: "whyChooseUs"
         widget: "list"
