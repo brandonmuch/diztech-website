@@ -45,7 +45,18 @@
   margin-top: var(--space-3);
   font-size: var(--text-md);
   color: var(--charcoal);
-  max-width: 46ch;
+}
+
+/* Below this, the container itself is narrow enough that an extra cap just
+   shortens lines further — let body copy use the full container width on
+   mobile. From tablet up, an uncapped line stretches close to the container's
+   full ~1280px, which reads as too long — cap it at roughly two-thirds of
+   the container instead of the old fixed 46ch, which wrapped so early it
+   looked like a stack of short, choppy lines rather than flowing paragraphs. */
+@media (min-width: 640px) {
+  .section-heading p {
+    max-width: 68%;
+  }
 }
 
 .section--navy .section-heading p {

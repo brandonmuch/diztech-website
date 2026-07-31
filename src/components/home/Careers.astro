@@ -10,23 +10,12 @@ const data = entry!.data as {
   whyWorkWithUs: Array<{ title: string; description: string }>;
   openings: Array<{ title: string; description: string }>;
   howToApply: string;
+  applyAnywayNote: string;
+  dataProtectionNote: string;
   closingLine: string;
 };
 
 const hasOpenings = data.openings.length > 0;
-
-const experienceOptions = ["0–1 years", "2–5 years", "6–10 years", "10+ years"];
-const skillOptions = [
-  "ERP Implementation",
-  "SAP Support",
-  "Training",
-  "Project Management",
-  "Change Management",
-  "Quality Assurance",
-  "IT Strategy",
-];
-const qualificationOptions = ["Diploma", "Degree", "Masters", "Other"];
-const arrangementOptions = ["On-site", "Remote", "Hybrid"];
 ---
 
 <section class="section section--navy careers" id="careers">
@@ -62,11 +51,12 @@ const arrangementOptions = ["On-site", "Remote", "Hybrid"];
 
         <h3>How to apply</h3>
         <p>{data.howToApply}</p>
+        <p class="careers__apply-anyway">{data.applyAnywayNote}</p>
         <p class="careers__closing">{data.closingLine}</p>
       </div>
     </div>
 
-    <div class="careers__form-wrap" data-reveal>
+    <div class="careers__form-card" data-reveal>
       <h3>Apply now</h3>
 
       <form
@@ -82,127 +72,61 @@ const arrangementOptions = ["On-site", "Remote", "Hybrid"];
           <label>Don't fill this out if you're human: <input name="bot-field" /></label>
         </p>
 
-        <p class="careers__form-section-label">Personal information</p>
         <div class="careers__field-row">
           <div class="careers__field">
-            <label for="fullName">Full name *</label>
-            <input id="fullName" name="fullName" type="text" required />
+            <label for="firstName">First name *</label>
+            <input id="firstName" name="firstName" type="text" required />
           </div>
+          <div class="careers__field">
+            <label for="lastName">Last name *</label>
+            <input id="lastName" name="lastName" type="text" required />
+          </div>
+        </div>
+
+        <div class="careers__field-row">
           <div class="careers__field">
             <label for="careersEmail">Email address *</label>
             <input id="careersEmail" name="email" type="email" required />
           </div>
-        </div>
-        <div class="careers__field-row">
           <div class="careers__field">
             <label for="careersPhone">Phone number *</label>
             <input id="careersPhone" name="phone" type="tel" required />
           </div>
-          <div class="careers__field">
-            <label for="location">Location / city</label>
-            <input id="location" name="location" type="text" />
-          </div>
-        </div>
-
-        <p class="careers__form-section-label">Position applied for</p>
-        <div class="careers__field-row">
-          <div class="careers__field">
-            <label for="position">Position *</label>
-            {
-              hasOpenings ? (
-                <select id="position" name="position" required>
-                  {data.openings.map((role) => <option value={role.title}>{role.title}</option>)}
-                  <option value="Other">Other</option>
-                </select>
-              ) : (
-                <select id="position" name="position" required>
-                  <option value="Roles currently unavailable" selected>
-                    Roles currently unavailable
-                  </option>
-                  <option value="Other">Other (general application)</option>
-                </select>
-              )
-            }
-          </div>
-          <div class="careers__field">
-            <label for="positionOther">If "Other", please specify</label>
-            <input id="positionOther" name="positionOther" type="text" />
-          </div>
-        </div>
-
-        <p class="careers__form-section-label">Professional background</p>
-        <div class="careers__field-row">
-          <div class="careers__field">
-            <label for="experience">Years of experience</label>
-            <select id="experience" name="yearsOfExperience">
-              {experienceOptions.map((opt) => <option value={opt}>{opt}</option>)}
-            </select>
-          </div>
-          <div class="careers__field">
-            <label for="qualification">Highest qualification</label>
-            <select id="qualification" name="highestQualification">
-              {qualificationOptions.map((opt) => <option value={opt}>{opt}</option>)}
-            </select>
-          </div>
         </div>
 
         <div class="careers__field">
-          <span class="careers__field-label">Relevant skills</span>
-          <div class="careers__checkbox-grid">
-            {
-              skillOptions.map((skill) => (
-                <label class="careers__checkbox">
-                  <input type="checkbox" name="skills" value={skill} />
-                  {skill}
-                </label>
-              ))
-            }
-          </div>
+          <label for="position">Position applying for</label>
+          {
+            hasOpenings ? (
+              <select id="position" name="position">
+                {data.openings.map((role) => <option value={role.title}>{role.title}</option>)}
+                <option value="General application">General application (no listed role fits)</option>
+              </select>
+            ) : (
+              <select id="position" name="position">
+                <option value="General application" selected>
+                  Roles currently unavailable — general application
+                </option>
+              </select>
+            )
+          }
         </div>
 
-        <p class="careers__form-section-label">Application materials</p>
-        <div class="careers__field-row">
-          <div class="careers__field">
-            <label for="cv">Upload CV / résumé *</label>
-            <input id="cv" name="cv" type="file" required accept=".pdf,.doc,.docx" />
-          </div>
-          <div class="careers__field">
-            <label for="coverLetter">Upload cover letter (optional)</label>
-            <input id="coverLetter" name="coverLetter" type="file" accept=".pdf,.doc,.docx" />
-          </div>
-        </div>
         <div class="careers__field">
-          <label for="portfolio">Portfolio / certificates (optional)</label>
-          <input id="portfolio" name="portfolio" type="file" accept=".pdf,.doc,.docx,.jpg,.png" />
+          <label for="cv">Upload CV / résumé *</label>
+          <input id="cv" name="cv" type="file" required accept=".pdf,.doc,.docx" />
         </div>
 
-        <p class="careers__form-section-label">Motivation</p>
         <div class="careers__field">
-          <label for="motivationJoin">Why do you want to join DizTech ERP Solutions?</label>
-          <textarea id="motivationJoin" name="motivationJoin" rows="3"></textarea>
-        </div>
-        <div class="careers__field">
-          <label for="motivationValue">What value can you bring to our clients?</label>
-          <textarea id="motivationValue" name="motivationValue" rows="3"></textarea>
+          <label for="message">Anything else you'd like us to know? (optional)</label>
+          <textarea id="message" name="message" rows="3"></textarea>
         </div>
 
-        <p class="careers__form-section-label">Availability</p>
-        <div class="careers__field-row">
-          <div class="careers__field">
-            <label for="startDate">Earliest start date</label>
-            <input id="startDate" name="startDate" type="date" />
-          </div>
-          <div class="careers__field">
-            <label for="arrangement">Preferred work arrangement</label>
-            <select id="arrangement" name="workArrangement">
-              {arrangementOptions.map((opt) => <option value={opt}>{opt}</option>)}
-            </select>
-          </div>
-        </div>
+        <p class="careers__data-note">{data.dataProtectionNote}</p>
 
         <label class="careers__consent">
           <input type="checkbox" name="consent" required />
-          I consent to DizTech ERP Solutions processing my personal data for recruitment purposes.
+          I consent to DizTech ERP Solutions storing and processing my personal data for recruitment purposes.
         </label>
 
         <div data-netlify-recaptcha="true"></div>
@@ -214,16 +138,6 @@ const arrangementOptions = ["On-site", "Remote", "Hybrid"];
 </section>
 
 <style>
-  /* The subtext is two full sentences; at the shared .section-heading p
-     width (46ch) it wraps to 3 uneven, mid-sentence lines. Widened so it
-     settles into one clean sentence per line instead — verified directly
-     against the rendered text. Has no effect below this width (mobile's
-     own container is already narrower), so nothing to guard with a
-     media query. */
-  .careers :global(.section-heading p:not(.eyebrow)) {
-    max-width: 560px;
-  }
-
   .careers h3 {
     font-size: var(--text-lg);
     color: var(--white);
@@ -266,36 +180,34 @@ const arrangementOptions = ["On-site", "Remote", "Hybrid"];
     margin-top: var(--space-5);
   }
 
+  .careers__apply-anyway {
+    margin-top: var(--space-2);
+    font-weight: 600;
+    color: var(--sky);
+  }
+
   .careers__closing {
     margin-top: var(--space-3);
     color: var(--sky);
     font-style: italic;
   }
 
-  .careers__form-wrap {
+  .careers__form-card {
     margin-top: var(--space-8);
-    padding-top: var(--space-7);
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding: var(--space-6);
+    background: var(--white);
+    border-radius: var(--radius-lg);
+  }
+
+  .careers__form-card h3 {
+    color: var(--navy);
   }
 
   .careers__form {
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
-    max-width: 720px;
-  }
-
-  .careers__form-section-label {
-    margin-top: var(--space-4);
-    font-size: var(--text-sm);
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--sky);
-  }
-
-  .careers__form-section-label:first-child {
-    margin-top: 0;
+    max-width: 560px;
   }
 
   .careers__field-row {
@@ -309,27 +221,21 @@ const arrangementOptions = ["On-site", "Remote", "Hybrid"];
     gap: var(--space-2);
   }
 
-  .careers__field label,
-  .careers__field-label {
+  .careers__field label {
     font-size: var(--text-sm);
     font-weight: 600;
-    color: var(--white);
+    color: var(--navy);
   }
 
   .careers__field input,
   .careers__field select,
   .careers__field textarea {
     padding: var(--space-3);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--silver);
     border-radius: var(--radius-sm);
-    background: rgba(255, 255, 255, 0.06);
-    color: var(--white);
+    background: var(--white);
+    color: var(--charcoal);
     font-family: inherit;
-  }
-
-  .careers__field input::placeholder,
-  .careers__field textarea::placeholder {
-    color: var(--silver);
   }
 
   .careers__field input[type="file"] {
@@ -339,31 +245,13 @@ const arrangementOptions = ["On-site", "Remote", "Hybrid"];
   .careers__field input:focus-visible,
   .careers__field select:focus-visible,
   .careers__field textarea:focus-visible {
-    outline: 2px solid var(--sky);
+    outline: 2px solid var(--sky-text);
     outline-offset: 1px;
   }
 
-  .careers__field select option {
-    color: var(--navy);
-  }
-
-  .careers__checkbox-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-2) var(--space-4);
-  }
-
-  .careers__checkbox {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
-    font-weight: 400;
-    color: var(--silver);
-  }
-
-  .careers__checkbox input {
-    width: auto;
+  .careers__data-note {
+    font-size: var(--text-xs);
+    color: var(--charcoal);
   }
 
   .careers__consent {
@@ -371,7 +259,7 @@ const arrangementOptions = ["On-site", "Remote", "Hybrid"];
     align-items: flex-start;
     gap: var(--space-2);
     font-size: var(--text-sm);
-    color: var(--silver);
+    color: var(--charcoal);
   }
 
   .careers__consent input {

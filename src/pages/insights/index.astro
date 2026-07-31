@@ -110,7 +110,12 @@ const categories = [
     margin-top: var(--space-4);
     color: var(--silver);
     font-size: var(--text-md);
-    max-width: 50ch;
+  }
+
+  @media (min-width: 640px) {
+    .insights-hero__intro {
+      max-width: 68%;
+    }
   }
 
   .insights-latest {

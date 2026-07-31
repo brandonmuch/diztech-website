@@ -56,7 +56,12 @@ const services = (await getCollection("services")).sort(
     margin-top: var(--space-4);
     color: var(--silver);
     font-size: var(--text-md);
-    max-width: 50ch;
+  }
+
+  @media (min-width: 640px) {
+    .tech-hero__intro {
+      max-width: 68%;
+    }
   }
 
   @media (min-width: 768px) {
@@ -67,30 +72,23 @@ const services = (await getCollection("services")).sort(
 
   .service-nav {
     position: sticky;
-    /* Must match the site header's actual rendered height, which differs by
-       breakpoint (mobile header has no CTA button, so it's shorter) —
-       otherwise the nav sticks partly underneath the header on one size. */
-    top: 86px; /* mobile header, measured ~73px + larger logo */
+    /* Must match the site header's actual rendered height (measured 83px at
+       both mobile and desktop — the header stays a single row at every
+       breakpoint), otherwise the nav sticks partly underneath the header. */
+    top: 83px;
     z-index: 40;
     background: var(--white);
     border-bottom: 1px solid var(--silver);
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  .service-nav::-webkit-scrollbar {
-    display: none;
   }
 
   .service-nav__list {
     display: flex;
+    flex-wrap: wrap;
     gap: var(--space-2);
     list-style: none;
     padding: var(--space-3) var(--space-4);
     max-width: var(--max-width);
     margin-inline: auto;
-    width: max-content;
-    min-width: 100%;
   }
 
   .service-nav__list a {
@@ -112,11 +110,6 @@ const services = (await getCollection("services")).sort(
   }
 
   @media (min-width: 1024px) {
-    .service-nav {
-      /* Desktop header is taller (it also shows the nav links + CTA button). */
-      top: 101px;
-    }
-
     .service-nav__list {
       padding-inline: var(--space-6);
     }

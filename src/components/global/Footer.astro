@@ -4,7 +4,6 @@ import PrivacyPolicyModal from "./PrivacyPolicyModal.astro";
 
 const settingsEntry = await getEntry("siteSettings", "main");
 const wordmark = settingsEntry?.data.wordmark ?? "DizTech";
-const tagline = settingsEntry?.data.tagline ?? "Trusted.";
 const year = new Date().getFullYear();
 ---
 
@@ -12,9 +11,8 @@ const year = new Date().getFullYear();
   <div class="container site-footer__inner">
     <div class="site-footer__brand">
       <p class="wordmark">
-        <img src="/uploads/diztech-logo.png" alt={wordmark} width="68" height="56" class="wordmark__mark" />
+        <img src="/uploads/diztech-logo-full.png" alt={`${wordmark} — Trusted.`} width="116" height="110" class="wordmark__mark" />
       </p>
-      <p class="tagline">{tagline}</p>
     </div>
 
     <nav aria-label="Footer">
@@ -56,13 +54,8 @@ const year = new Date().getFullYear();
 
   .wordmark__mark {
     display: block;
-    width: 68px;
-    height: 56px;
-  }
-
-  .site-footer__brand .tagline {
-    color: var(--sky);
-    margin-top: var(--space-2);
+    width: 116px;
+    height: 110px;
   }
 
   .site-footer__links {

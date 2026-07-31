@@ -62,8 +62,13 @@ const { id, title, summary, bullets, open = false, wide = false } = Astro.props;
 
   .accordion-content {
     padding-bottom: var(--space-5);
-    max-width: 68ch;
     color: var(--charcoal);
+  }
+
+  @media (min-width: 640px) {
+    .accordion-content:not(.accordion-content--wide) {
+      max-width: 68%;
+    }
   }
 
   .accordion-content--wide {

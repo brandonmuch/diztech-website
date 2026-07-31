@@ -64,7 +64,8 @@ collections:
             max: 5
             fields:
               - { label: "Front label", name: "front", widget: "string" }
-              - { label: "Back detail", name: "back", widget: "text" }
+              - { label: "Stat (shown first when opened)", name: "stat", widget: "string" }
+              - { label: "Detail (continues the sentence after the stat)", name: "detail", widget: "text" }
               - { label: "Icon", name: "icon", widget: "string", hint: "clock, award, grid, globe, or compass" }
 
       - name: "careers"
@@ -88,6 +89,8 @@ collections:
               - { label: "Role title", name: "title", widget: "string" }
               - { label: "Description", name: "description", widget: "text" }
           - { label: "How to apply", name: "howToApply", widget: "text" }
+          - { label: "Apply-anyway note (shown even when there are no listed openings)", name: "applyAnywayNote", widget: "text" }
+          - { label: "Data protection note (shown on the application form)", name: "dataProtectionNote", widget: "text" }
           - { label: "Closing line", name: "closingLine", widget: "string" }
 
       - name: "contact"
