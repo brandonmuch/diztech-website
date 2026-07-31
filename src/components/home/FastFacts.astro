@@ -45,10 +45,10 @@ const icons: Record<string, string> = {
                     aria-hidden="true"
                     set:html={icons[card.icon] ?? icons.compass}
                   />
+                  <span class="flip-card__stat">{card.stat}</span>
                   <span class="flip-card__title">{card.front}</span>
                 </span>
                 <span class="flip-card__face flip-card__face--back">
-                  <span class="flip-card__stat">{card.stat}</span>
                   <span class="flip-card__detail">{card.detail}</span>
                 </span>
               </span>
@@ -108,19 +108,22 @@ const icons: Record<string, string> = {
     overflow: hidden;
   }
 
+  /* The stat is the main eye-catching figure — shown up front, no flip
+     required. The flip only reveals the continuing sentence on the back. */
   .flip-card__stat {
     font-family: var(--font-display);
-    font-size: var(--text-md);
+    font-size: var(--text-xl);
     font-weight: 700;
+    line-height: 1.15;
   }
 
   .flip-card__detail {
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 6;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    font-size: var(--text-xs);
-    font-weight: 500;
+    font-size: var(--text-sm);
+    font-weight: 600;
   }
 
   .flip-card__face--front {
@@ -129,23 +132,23 @@ const icons: Record<string, string> = {
   }
 
   .flip-card__face--front svg {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     color: var(--sky);
   }
 
   .flip-card__title {
-    font-family: var(--font-display);
-    font-size: var(--text-md);
+    font-size: var(--text-xs);
     font-weight: 600;
+    color: var(--silver);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
 
   .flip-card__face--back {
     background: var(--sky);
     color: var(--navy);
     transform: rotateY(180deg);
-    font-size: var(--text-sm);
-    font-weight: 600;
   }
 
   @media (prefers-reduced-motion: reduce) {
