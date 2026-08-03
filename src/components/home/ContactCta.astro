@@ -14,7 +14,7 @@ const data = entry!.data as {
 };
 ---
 
-<section class="section section--wash contact" id="contact">
+<section class="section section--navy contact" id="contact">
   <div class="container">
     <SectionHeading heading={data.heading} description={data.intro} />
 
@@ -133,7 +133,7 @@ const data = entry!.data as {
   .contact__field label {
     font-size: var(--text-sm);
     font-weight: 600;
-    color: var(--navy);
+    color: var(--white);
   }
 
   .contact__field input,
@@ -154,19 +154,18 @@ const data = entry!.data as {
 
   .contact__privacy {
     font-size: var(--text-xs);
-    color: var(--charcoal);
+    color: var(--silver);
   }
 
   .contact__locations h3 {
     font-size: var(--text-lg);
-    color: var(--navy);
+    color: var(--white);
     margin-bottom: var(--space-4);
   }
 
   .contact__location {
     padding: var(--space-4);
     background: var(--white);
-    border: 1px solid var(--silver);
     border-radius: var(--radius-md);
     margin-bottom: var(--space-3);
   }
@@ -186,7 +185,8 @@ const data = entry!.data as {
     font-family: var(--font-display);
     font-size: var(--text-md);
     font-weight: 600;
-    color: var(--navy);
+    color: var(--sky);
+    font-style: italic;
   }
 
   @media (min-width: 640px) {
