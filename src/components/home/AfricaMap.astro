@@ -1,20 +1,10 @@
 ---
 import { getCollection } from "astro:content";
 import SectionHeading from "../ui/SectionHeading.astro";
-import africaCountries from "../../lib/africaCountriesData.json";
 
 const presence = (await getCollection("siteData")).sort(
   (a, b) => a.data.order - b.data.order
 );
-
-const presenceBySvgId = new Map(presence.map((entry) => [entry.data.svgId, entry.data]));
-
-// Real country outlines (56 African countries, extracted from a MapSVG
-// world dataset and filtered down to the continent — see src/lib/africaCountriesData.json)
-// replace the earlier hand-drawn approximation entirely, so there's no
-// separate marker-projection math to keep in sync with the shape anymore:
-// a country is either filled in as a presence country or it isn't.
-const countries = africaCountries as Array<{ id: string; title: string; d: string }>;
 ---
 
 <section class="section section--navy africa-map" id="why-choose-us">
@@ -25,26 +15,13 @@ const countries = africaCountries as Array<{ id: string; title: string; d: strin
     />
 
     <div class="africa-map__layout">
-      <div class="africa-map__svg-wrap" data-reveal>
-        <svg
-          viewBox="0 0 239.06 217.32"
-          role="img"
-          aria-label={`Map of Africa with DizTech's presence highlighted across ${presence.length} countries: ${presence.map((p) => p.data.country).join(", ")}`}
-        >
-          {
-            countries.map((country) => {
-              const entry = presenceBySvgId.get(country.id);
-              return (
-                <path
-                  d={country.d}
-                  class={entry ? "africa-map__country africa-map__country--presence" : "africa-map__country"}
-                >
-                  <title>{entry ? entry.label : country.title}</title>
-                </path>
-              );
-            })
-          }
-        </svg>
+      <div class="africa-map__image-wrap" data-reveal>
+        <img
+          src="/uploads/africa-presence-map.png"
+          alt={`Map of Africa with DizTech's presence highlighted across ${presence.length} countries: ${presence.map((p) => p.data.country).join(", ")}`}
+          width="1254"
+          height="1254"
+        />
       </div>
 
       <ul class="africa-map__legend">
@@ -71,30 +48,12 @@ const countries = africaCountries as Array<{ id: string; title: string; d: strin
     align-items: center;
   }
 
-  .africa-map__svg-wrap svg {
+  .africa-map__image-wrap img {
+    display: block;
     width: 100%;
     height: auto;
     max-width: 480px;
     margin-inline: auto;
-  }
-
-  .africa-map__country {
-    fill: rgba(255, 255, 255, 0.06);
-    stroke: rgba(230, 234, 238, 0.35);
-    stroke-width: 0.4;
-    stroke-linejoin: round;
-  }
-
-  .africa-map__country--presence {
-    fill: var(--sky);
-    stroke: var(--white);
-    stroke-width: 0.5;
-    transition: fill var(--motion-fast) var(--motion-ease);
-  }
-
-  .africa-map__country--presence:hover,
-  .africa-map__country--presence:focus-visible {
-    fill: var(--white);
   }
 
   .africa-map__legend {
