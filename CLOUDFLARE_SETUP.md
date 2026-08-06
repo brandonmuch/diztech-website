@@ -41,7 +41,7 @@ Do these in order — later steps depend on earlier ones.
 | `CONTACT_DESTINATION_EMAIL` | the verified mailbox from Email Routing above |
 | `CAREERS_DESTINATION_EMAIL` | same address, or a different verified one |
 
-**Add the Send Email binding** — Pages project → Settings → Functions → Bindings → add binding of type **Send Email**, name it `SEND_EMAIL`, and point it at the same verified destination address. (`wrangler.toml` in the repo already declares this binding; the dashboard step is what actually wires it up for the deployed project.)
+**Add the Send Email binding** — Pages project → Settings → Functions → Bindings → add binding of type **Send Email**, name it `SEND_EMAIL`, and point it at the same verified destination address. (There's no `wrangler.toml` in this repo — it broke the deploy, since Cloudflare's build system runs `wrangler deploy` instead of the normal Pages asset upload whenever one is present. Bindings just get set up directly in the dashboard instead.)
 
 Redeploy after setting these (env var changes need a fresh deploy to take effect).
 
