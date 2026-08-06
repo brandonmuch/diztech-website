@@ -7,6 +7,7 @@ const data = entry!.data as {
   heading: string;
   intro: string;
   serviceOptions: string[];
+  email: string;
   locationsHeading: string;
   locations: Array<{ name: string; address: string; phone: string }>;
   closingLine: string;
@@ -83,6 +84,9 @@ const data = entry!.data as {
       </form>
 
       <div class="contact__locations" data-reveal>
+        <p class="contact__email">
+          <a href={`mailto:${data.email}`}>{data.email}</a>
+        </p>
         <h3>{data.locationsHeading}</h3>
         {
           data.locations.map((loc) => (
@@ -153,6 +157,23 @@ const data = entry!.data as {
   .contact__privacy {
     font-size: var(--text-xs);
     color: var(--silver);
+  }
+
+  .contact__email {
+    margin-bottom: var(--space-5);
+  }
+
+  .contact__email a {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--sky);
+    text-decoration: none;
+  }
+
+  .contact__email a:hover,
+  .contact__email a:focus-visible {
+    text-decoration: underline;
   }
 
   .contact__locations h3 {

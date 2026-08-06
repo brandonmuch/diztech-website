@@ -28,11 +28,15 @@ const { Content } = entry ? await render(entry) : { Content: null };
 </dialog>
 
 <script>
-  const trigger = document.querySelector<HTMLElement>('[data-open-modal="privacy-policy-modal"]');
+  // querySelectorAll, not querySelector — more than one trigger on the page
+  // (footer link, cookie notice) can open this same modal.
+  const triggers = document.querySelectorAll<HTMLElement>('[data-open-modal="privacy-policy-modal"]');
   const modal = document.getElementById("privacy-policy-modal");
 
-  trigger?.addEventListener("click", () => {
-    if (modal instanceof HTMLDialogElement) modal.showModal();
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      if (modal instanceof HTMLDialogElement) modal.showModal();
+    });
   });
 
   modal?.querySelector("[data-close-modal]")?.addEventListener("click", () => {

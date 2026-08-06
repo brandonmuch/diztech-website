@@ -29,7 +29,7 @@ Worker that serves the static site and handles `/api/contact`,
 **Enable Email Routing** (lets the Worker send email without a third-party service):
 
 1. Cloudflare dashboard → your domain → **Email** → **Email Routing** → enable it.
-2. Add the mailbox that should receive submissions (e.g. `info@diztech.co.zw`) as a **destination address** and verify it (Cloudflare emails a confirmation link).
+2. Add **both** `info@diztech.co.zw` (contact form) and `careers@diztech.co.zw` (careers form) as **destination addresses** and verify each one (Cloudflare emails a confirmation link to that mailbox itself, so you'll need access to both inboxes to click the links).
 
 The `SEND_EMAIL` binding itself is already declared in `wrangler.toml` and showed up correctly in a local dry-run (`env.SEND_EMAIL — Send Email`) — you shouldn't need to add anything for it manually, just verify the destination address above.
 
@@ -45,8 +45,8 @@ The `SEND_EMAIL` binding itself is already declared in `wrangler.toml` and showe
 |---|---|---|
 | `PUBLIC_TURNSTILE_SITE_KEY` | the Turnstile Site Key | **build** variable — Astro inlines this into the HTML at build time, so it must be set as a build env var, not just a runtime one |
 | `TURNSTILE_SECRET_KEY` | the Turnstile Secret Key | Secret |
-| `CONTACT_DESTINATION_EMAIL` | the verified mailbox from Email Routing above | Variable |
-| `CAREERS_DESTINATION_EMAIL` | same address, or a different verified one | Variable |
+| `CONTACT_DESTINATION_EMAIL` | `info@diztech.co.zw` | Variable |
+| `CAREERS_DESTINATION_EMAIL` | `careers@diztech.co.zw` | Variable |
 
 Redeploy after setting these (env var changes need a fresh deploy to take effect).
 
