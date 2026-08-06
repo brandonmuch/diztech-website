@@ -1,4 +1,5 @@
 import { verifyTurnstile, buildMimeMessage, fileToAttachment, jsonResponse } from "../../cf-functions-lib/email.js";
+import { storeSubmission } from "../../cf-functions-lib/retention.js";
 
 // Cloudflare Pages Function — handles POST /api/careers
 // Same env requirements as contact.js, plus:
@@ -70,6 +71,18 @@ export async function onRequestPost(context) {
     const destination = env.CAREERS_DESTINATION_EMAIL || env.CONTACT_DESTINATION_EMAIL;
     const message_ = new EmailMessage("website@diztech.co.zw", destination, raw);
     await env.SEND_EMAIL.send(message_);
+
+    // Best-effort — a KV hiccup shouldn't fail a submission that already emailed fine.
+    try {
+      await storeSubmission(
+        env.SUBMISSIONS,
+        "careers",
+        { firstName, lastName, email, phone, position, message },
+        attachments
+      );
+    } catch {
+      // swallow — the email above is the primary delivery path
+    }
 
     return jsonResponse({ ok: true });
   } catch (err) {

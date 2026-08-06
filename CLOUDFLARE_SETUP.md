@@ -50,6 +50,15 @@ The `SEND_EMAIL` binding itself is already declared in `wrangler.toml` and showe
 
 Redeploy after setting these (env var changes need a fresh deploy to take effect).
 
+**6-month automatic data retention (including CVs):** every submission — contact enquiries and careers applications, CV attachment included — also gets written to a Cloudflare KV namespace with a 6-month expiry, so Cloudflare deletes it automatically. No cron job, nothing to remember to clean up.
+
+1. Cloudflare dashboard → **Storage & Databases → KV → Create a namespace**. Name it something like `diztech-submissions`.
+2. Copy the **Namespace ID** it gives you.
+3. In `wrangler.toml`, replace `REPLACE_WITH_KV_NAMESPACE_ID` with that real ID (send it to me and I'll commit it, or edit the file directly on GitHub).
+4. Redeploy.
+
+Worth knowing: this only covers the copy Cloudflare holds. The copy that gets *emailed* to `info@`/`careers@` is a separate thing living in that mailbox, and this doesn't touch it — set up an auto-delete/archive rule at 6 months in whatever you use for that inbox (Gmail, Outlook, Zoho all support this) if you want the promise to hold end-to-end.
+
 ## 4. `/admin` CMS login (GitHub OAuth)
 
 Decap CMS now logs in via GitHub instead of Netlify Identity. You need a GitHub OAuth App:
@@ -79,4 +88,5 @@ Once `diztech.co.zw` is serving from Cloudflare and you've tested the forms and 
 - [ ] Home page loads on the `*.workers.dev` URL
 - [ ] Contact form submits and you receive the email
 - [ ] Careers form submits with a CV attached and you receive the email with the attachment
+- [ ] After submitting, a new key shows up in the KV namespace (dashboard → your KV namespace → should list an entry like `contact:169...:...`)
 - [ ] `/admin` loads, "Login with GitHub" works, and you can edit + publish a change

@@ -11,3 +11,14 @@ binding = "ASSETS"
 # (set as CONTACT_DESTINATION_EMAIL below) verified.
 [[send_email]]
 name = "SEND_EMAIL"
+
+# Holds a copy of every submission with a 6-month expiry (Cloudflare deletes
+# the key itself once it expires - no scheduled job needed). This is the
+# system that actually enforces the Privacy Policy's retention promise; the
+# emails sent via SEND_EMAIL above are a separate copy that lives in the
+# destination mailbox and needs its own auto-delete rule there (see
+# CLOUDFLARE_SETUP.md). Replace "id" below with the real namespace id after
+# running `wrangler kv namespace create SUBMISSIONS`.
+[[kv_namespaces]]
+binding = "SUBMISSIONS"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"

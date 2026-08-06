@@ -1,10 +1,12 @@
 import { verifyTurnstile, buildMimeMessage, jsonResponse } from "../../cf-functions-lib/email.js";
+import { storeSubmission } from "../../cf-functions-lib/retention.js";
 
 // Cloudflare Pages Function — handles POST /api/contact
 // Requires (set in the Pages project's environment variables / bindings):
 //   TURNSTILE_SECRET_KEY      - secret key for the Turnstile widget
 //   CONTACT_DESTINATION_EMAIL - the mailbox that should receive submissions
 //   SEND_EMAIL                - a "Send Email" binding (Email Routing) to that address
+//   SUBMISSIONS                - a KV namespace binding, for the 6-month retention record
 export async function onRequestPost(context) {
   const { request, env } = context;
 
@@ -63,6 +65,22 @@ export async function onRequestPost(context) {
     const { EmailMessage } = await import("cloudflare:email");
     const message_ = new EmailMessage("website@diztech.co.zw", env.CONTACT_DESTINATION_EMAIL, raw);
     await env.SEND_EMAIL.send(message_);
+
+    // Best-effort — a KV hiccup shouldn't fail a submission that already emailed fine.
+    try {
+      await storeSubmission(env.SUBMISSIONS, "contact", {
+        firstName,
+        lastName,
+        email,
+        phone,
+        company,
+        role,
+        serviceInterest,
+        message,
+      });
+    } catch {
+      // swallow — the email above is the primary delivery path
+    }
 
     return jsonResponse({ ok: true });
   } catch (err) {
