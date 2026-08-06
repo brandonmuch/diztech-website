@@ -1,6 +1,8 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: brandonmuch/diztech-website
   branch: main
+  base_url: https://diztech.co.zw
 
 media_folder: "public/uploads"
 public_folder: "/uploads"

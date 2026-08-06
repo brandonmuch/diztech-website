@@ -30,6 +30,9 @@ const { title, description } = Astro.props;
       rel="stylesheet"
     />
 
+    <!-- Powers the Turnstile widgets on the Contact and Careers forms. -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
     <script is:inline>
       // Set before paint so no-JS visitors never see a permanently-hidden [data-reveal] section.
       document.documentElement.classList.add("js");
@@ -43,5 +46,6 @@ const { title, description } = Astro.props;
     </main>
     <Footer />
     <script src="../scripts/motion.ts"></script>
+    <script src="../scripts/form-submit.ts"></script>
   </body>
 </html>
