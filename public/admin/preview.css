@@ -1,0 +1,161 @@
+/* Loaded into the Decap CMS preview iframe (see admin/index.html) so
+   editors see their content in the site's real fonts, colors, and basic
+   typography while they type — not exact pixel-for-pixel section layout
+   (that lives in Astro's scoped component styles, which aren't reachable
+   from here), but genuinely on-brand rather than plain black-on-white text.
+   Keep this in sync by hand with src/styles/tokens.css if the brand
+   tokens change. */
+
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap");
+
+:root {
+  --white: #ffffff;
+  --navy: #0b1f3a;
+  --sky: #03b9f1;
+  --sky-text: #00789c;
+  --charcoal: #2b2f36;
+  --silver: #e6eaee;
+  --silver-soft: #f4f6f8;
+
+  --font-display: "Lexend", sans-serif;
+  --font-body: "Source Sans 3", sans-serif;
+
+  --text-xs: 0.8rem;
+  --text-sm: 0.9rem;
+  --text-base: 1rem;
+  --text-md: 1.15rem;
+  --text-lg: 1.4rem;
+  --text-xl: 1.7rem;
+  --text-2xl: 2.1rem;
+
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-btn: 999px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--charcoal);
+  background: var(--white);
+  padding: var(--space-5);
+}
+
+.preview h1,
+.preview h2,
+.preview h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.15;
+  margin-bottom: var(--space-3);
+}
+
+.preview h1 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+}
+
+.preview h2 {
+  font-size: var(--text-xl);
+}
+
+.preview h3 {
+  font-size: var(--text-lg);
+}
+
+.preview p {
+  margin-bottom: var(--space-3);
+  max-width: 65ch;
+}
+
+.preview .eyebrow {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sky-text);
+  margin-bottom: var(--space-2);
+}
+
+.preview-field {
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--silver);
+}
+
+.preview-field:last-child {
+  border-bottom: none;
+}
+
+.preview-field__label {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sky-text);
+  margin-bottom: var(--space-2);
+}
+
+.preview ul {
+  padding-left: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.preview li {
+  margin-bottom: var(--space-2);
+}
+
+.preview li strong {
+  color: var(--navy);
+}
+
+.preview-card {
+  padding: var(--space-4);
+  background: var(--silver-soft);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-3);
+}
+
+.preview-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-btn);
+  background: var(--sky);
+  color: var(--navy);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.preview-image {
+  width: 100%;
+  max-width: 480px;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-3);
+}
+
+.preview-article-body {
+  font-size: var(--text-md);
+  line-height: 1.7;
+  max-width: 65ch;
+}
+
+.preview-article-body h2 {
+  font-family: var(--font-display);
+  color: var(--navy);
+  font-size: var(--text-lg);
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-2);
+}
+
+.preview-article-body p {
+  margin-bottom: var(--space-3);
+}
