@@ -1,0 +1,13 @@
+name = "diztech-website"
+main = "worker/index.js"
+compatibility_date = "2024-09-23"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+
+# Lets the Worker send email via Cloudflare Email Routing. Requires Email
+# Routing enabled on the diztech.co.zw zone, with the destination address
+# (set as CONTACT_DESTINATION_EMAIL below) verified.
+[[send_email]]
+name = "SEND_EMAIL"
