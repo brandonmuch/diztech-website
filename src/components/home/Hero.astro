@@ -118,10 +118,12 @@ const data = entry!.data as {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* The source composition places the subject right-of-centre; a narrow
-       mobile viewport center-cropping this landscape media would push him
-       toward — or past — the edge, so mobile favors the right of the frame. */
-    object-position: right center;
+    /* The source composition places the subject at roughly 70-87% across
+       the frame (face around 72-76%). A narrow mobile viewport crops down
+       to a sliver of the original width — "right" (100%) overshoots that
+       and crops past him entirely, leaving just an arm. 75% keeps his
+       face and most of his body in frame instead. */
+    object-position: 75% center;
   }
 
   /* The zoom animation is image-only. Layering a CSS transform:scale on top
