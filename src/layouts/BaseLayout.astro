@@ -36,6 +36,26 @@ const { title, description } = Astro.props;
       // Set before paint so no-JS visitors never see a permanently-hidden [data-reveal] section.
       document.documentElement.classList.add("js");
     </script>
+
+    <!-- Netlify Identity invite/confirmation/recovery links redirect to the
+         site's Site URL (this homepage, not necessarily /admin) with a
+         token in the URL hash - this widget has to be loaded wherever that
+         landing page is to catch it and pop the "set your password" modal.
+         Without it here, clicking the invite link just lands on a normal
+         page with no prompt at all. /admin/index.html loads its own copy
+         too, for the actual login screen there. -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" is:inline></script>
+    <script is:inline>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", (user) => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
   </head>
   <body>
     <SkipLink />
