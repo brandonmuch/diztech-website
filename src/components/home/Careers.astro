@@ -62,10 +62,12 @@ const hasOpenings = data.openings.length > 0;
       <form
         name="careers-application"
         method="POST"
-        data-async-submit="/api/careers"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
         enctype="multipart/form-data"
         class="careers__form"
       >
+        <input type="hidden" name="form-name" value="careers-application" />
         <p class="visually-hidden">
           <label>Don't fill this out if you're human: <input name="bot-field" /></label>
         </p>
@@ -127,7 +129,7 @@ const hasOpenings = data.openings.length > 0;
           I consent to DizTech ERP Solutions storing and processing my personal data for recruitment purposes.
         </label>
 
-        <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}></div>
+        <div data-netlify-recaptcha="true"></div>
 
         <button type="submit" class="btn btn--primary careers__submit">Apply Now</button>
       </form>

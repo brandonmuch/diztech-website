@@ -1,3 +1,11 @@
+> **Superseded — not the path in use.** The domain's registrar wouldn't
+> allow the nameserver handover Cloudflare's setup needed, so the project
+> moved back to Netlify (records-only DNS works there without moving
+> nameservers). See `NETLIFY_SETUP.md` instead. All the Cloudflare-specific
+> code (Workers, Pages Functions, wrangler.toml, KV retention) was removed
+> from the repo — this doc is kept only in case Cloudflare comes back up
+> as an option later.
+
 # Moving DizTech from Netlify to Cloudflare
 
 All the code-side work is done and pushed to `main`. What's left needs your

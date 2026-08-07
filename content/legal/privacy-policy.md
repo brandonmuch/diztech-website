@@ -19,7 +19,7 @@ We use your contact details to respond to your enquiry, discuss your project, an
 
 ## Where it's stored
 
-Form submissions are sent directly to a DizTech mailbox by email — we don't run a database or store submissions in any separate system. Your information exists wherever that email lives (our mailbox, and any device or backup that syncs with it), and is protected by the same access controls we use for our email generally.
+Form submissions are handled through our website hosting provider's form service and stored securely on their infrastructure, with a copy also sent to the relevant DizTech mailbox. Standard measures, including spam filtering, help keep submissions genuine.
 
 ## Data retention
 
@@ -27,7 +27,7 @@ We keep contact and careers submissions for up to **6 months**, after which they
 
 ## Cookies
 
-This site doesn't use tracking or advertising cookies. Cloudflare Turnstile, which protects our forms from spam and abuse, sets a small technical cookie while you're submitting a form. Our content management system may also set essential cookies needed for that feature to work. None of these are used to track you across other sites.
+This site doesn't use tracking or advertising cookies. reCAPTCHA, which protects our forms from spam and abuse, sets a small technical cookie while you're submitting a form. Our content management system may also set essential cookies needed for that feature to work. None of these are used to track you across other sites.
 
 ## Your rights
 

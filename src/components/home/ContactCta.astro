@@ -23,10 +23,12 @@ const data = entry!.data as {
       <form
         name="contact"
         method="POST"
-        data-async-submit="/api/contact"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
         class="contact__form"
         data-reveal
       >
+        <input type="hidden" name="form-name" value="contact" />
         <p class="visually-hidden">
           <label>Don't fill this out if you're human: <input name="bot-field" /></label>
         </p>
@@ -76,7 +78,7 @@ const data = entry!.data as {
           <textarea id="message" name="message" rows="4"></textarea>
         </div>
 
-        <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}></div>
+        <div data-netlify-recaptcha="true"></div>
 
         <button type="submit" class="btn btn--primary contact__submit">Schedule a Consultation</button>
 
