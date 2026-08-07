@@ -26,6 +26,7 @@ const data = entry!.data as {
           muted
           loop
           playsinline
+          preload="auto"
           poster={data.image}
           aria-hidden="true"
         >
@@ -66,6 +67,16 @@ const data = entry!.data as {
   if (heroVideo && reduceMotion) {
     heroVideo.pause();
     heroVideo.removeAttribute("autoplay");
+  } else if (heroVideo) {
+    // iOS Safari doesn't always honor the declarative autoplay attribute
+    // reliably on its own (timing/engine quirks vary by version) - forcing
+    // an explicit play() call after mount is the standard hardening for
+    // that. .muted is also set here as a property, not just the HTML
+    // attribute, since that's the other half of what iOS checks before
+    // allowing autoplay at all.
+    heroVideo.muted = true;
+    const playPromise = heroVideo.play();
+    if (playPromise) playPromise.catch(() => {});
   }
 
   if (hero && media && !reduceMotion) {
