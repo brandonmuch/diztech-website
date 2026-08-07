@@ -64,6 +64,24 @@ const data = entry!.data as {
   const heroVideo = document.querySelector<HTMLVideoElement>(".hero__media video");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // Swaps the <video> for a plain <img> of its poster frame. Used when
+  // autoplay didn't start (see below) - a plain image never shows any
+  // play affordance, which a paused <video> can, even without the
+  // `controls` attribute. This is the only reliable way to guarantee no
+  // play button ever appears: there's no CSS that reaches that overlay
+  // (it isn't the standard ::-webkit-media-controls-* UI, which only
+  // exists when `controls` is set - it's a separate paused-inline-video
+  // affordance with no exposed styling hook), so removing the video
+  // element itself is the fix.
+  function replaceHeroVideoWithPoster() {
+    if (!heroVideo || !heroVideo.isConnected) return;
+    const img = document.createElement("img");
+    img.src = heroVideo.poster;
+    img.alt = "";
+    img.setAttribute("aria-hidden", "true");
+    heroVideo.replaceWith(img);
+  }
+
   if (heroVideo && reduceMotion) {
     heroVideo.pause();
     heroVideo.removeAttribute("autoplay");
@@ -76,7 +94,15 @@ const data = entry!.data as {
     // allowing autoplay at all.
     heroVideo.muted = true;
     const playPromise = heroVideo.play();
-    if (playPromise) playPromise.catch(() => {});
+    if (playPromise) playPromise.catch(replaceHeroVideoWithPoster);
+
+    // Autoplay being genuinely blocked (Low Power Mode, Low Data Mode) is
+    // silent on some engines - play() can resolve without ever actually
+    // starting playback, so double-check shortly after rather than only
+    // trusting the promise's rejection.
+    setTimeout(() => {
+      if (heroVideo.paused) replaceHeroVideoWithPoster();
+    }, 800);
   }
 
   if (hero && media && !reduceMotion) {
