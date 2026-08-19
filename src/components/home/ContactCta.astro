@@ -107,43 +107,36 @@ const data = entry!.data as {
 </section>
 
 <!-- Success Popup -->
-<div id="success-popup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center;">
-  <div style="background: white; padding: 2.5rem; border-radius: 8px; max-width: 480px; width: 90%; position: relative; text-align: center;">
-    <button id="popup-close-x" style="position: absolute; top: 12px; right: 12px; background: none; border: none; font-size: 28px; cursor: pointer; color: #666; line-height: 1;">&times;</button>
+<div id="success-popup" onclick="this.style.display='none'" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; cursor: pointer;">
+  <div onclick="event.stopPropagation()" style="background: white; padding: 2.5rem; border-radius: 8px; max-width: 480px; width: 90%; position: relative; text-align: center; cursor: default;">
     <h3 style="color: #0b1f3a; margin-bottom: 1rem; font-size: 1.5rem;">Thank You!</h3>
     <p style="color: #333; margin-bottom: 1.5rem; line-height: 1.6;">Your message has been sent successfully. Our team will get back to you shortly.</p>
-    <button id="popup-close-btn" style="background: #0aa8db; color: white; padding: 0.75rem 2rem; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 1rem;">Close</button>
+    <p style="color: #999; font-size: 0.875rem;">This message will close automatically</p>
   </div>
 </div>
 
 <script>
-  function closePopup() {
-    document.getElementById('success-popup').style.display = 'none';
+  const form = document.getElementById('contact-form');
+  const successPopup = document.getElementById('success-popup');
+  let autoCloseTimer;
+
+  function showPopup() {
+    successPopup.style.display = 'flex';
+    successPopup.style.opacity = '1';
+    
+    // Auto close after 5 seconds
+    autoCloseTimer = setTimeout(() => {
+      successPopup.style.opacity = '0';
+      setTimeout(() => {
+        successPopup.style.display = 'none';
+      }, 300);
+    }, 5000);
   }
 
-  const form = document.getElementById('contact-form');
-  const popupCloseX = document.getElementById('popup-close-x');
-  const popupCloseBtn = document.getElementById('popup-close-btn');
-  const successPopup = document.getElementById('success-popup');
-
-  // Close popup with X button
-  popupCloseX?.addEventListener('click', closePopup);
-  
-  // Close popup with Close button
-  popupCloseBtn?.addEventListener('click', closePopup);
-
-  // Close popup when clicking outside
-  successPopup?.addEventListener('click', (e) => {
-    if (e.target === successPopup) {
-      closePopup();
-    }
-  });
-
-  // Close popup with Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closePopup();
-    }
+  // Close immediately when clicking anywhere on the popup
+  successPopup?.addEventListener('click', () => {
+    clearTimeout(autoCloseTimer);
+    successPopup.style.display = 'none';
   });
 
   form?.addEventListener('submit', (e) => {
@@ -157,7 +150,7 @@ const data = entry!.data as {
       body: new URLSearchParams(formData).toString(),
     })
     .then(() => {
-      successPopup.style.display = 'flex';
+      showPopup();
       form.reset();
     })
     .catch(() => {
