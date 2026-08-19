@@ -141,10 +141,10 @@ const hasOpenings = data.openings.length > 0;
 <!-- Success Popup -->
 <div id="careers-success-popup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center;">
   <div style="background: white; padding: 2.5rem; border-radius: 8px; max-width: 480px; width: 90%; position: relative; text-align: center;">
-    <button onclick="closeCareersPopup()" style="position: absolute; top: 12px; right: 12px; background: none; border: none; font-size: 28px; cursor: pointer; color: #666; line-height: 1;">&times;</button>
+    <button id="careers-popup-close-x" style="position: absolute; top: 12px; right: 12px; background: none; border: none; font-size: 28px; cursor: pointer; color: #666; line-height: 1;">&times;</button>
     <h3 style="color: #0b1f3a; margin-bottom: 1rem; font-size: 1.5rem;">Application Submitted!</h3>
     <p style="color: #333; margin-bottom: 1.5rem; line-height: 1.6;">Thank you for your interest in joining DizTech ERP Solutions. We've received your application and will be in touch if there's a match.</p>
-    <button onclick="closeCareersPopup()" style="background: #0aa8db; color: white; padding: 0.75rem 2rem; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 1rem;">Close</button>
+    <button id="careers-popup-close-btn" style="background: #0aa8db; color: white; padding: 0.75rem 2rem; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 1rem;">Close</button>
   </div>
 </div>
 
@@ -154,7 +154,30 @@ const hasOpenings = data.openings.length > 0;
   }
 
   const careersForm = document.getElementById('careers-form');
+  const careersPopupCloseX = document.getElementById('careers-popup-close-x');
+  const careersPopupCloseBtn = document.getElementById('careers-popup-close-btn');
+  const careersSuccessPopup = document.getElementById('careers-success-popup');
+
+  // Close popup with X button
+  careersPopupCloseX?.addEventListener('click', closeCareersPopup);
   
+  // Close popup with Close button
+  careersPopupCloseBtn?.addEventListener('click', closeCareersPopup);
+
+  // Close popup when clicking outside
+  careersSuccessPopup?.addEventListener('click', (e) => {
+    if (e.target === careersSuccessPopup) {
+      closeCareersPopup();
+    }
+  });
+
+  // Close popup with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeCareersPopup();
+    }
+  });
+
   careersForm?.addEventListener('submit', (e) => {
     e.preventDefault();
     
@@ -166,19 +189,12 @@ const hasOpenings = data.openings.length > 0;
       body: new URLSearchParams(formData).toString(),
     })
     .then(() => {
-      document.getElementById('careers-success-popup').style.display = 'flex';
+      careersSuccessPopup.style.display = 'flex';
       careersForm.reset();
     })
     .catch(() => {
       alert('Something went wrong. Please try again or email us directly at info@diztech.co.zw');
     });
-  });
-
-  // Close popup when clicking outside
-  document.getElementById('careers-success-popup').addEventListener('click', (e) => {
-    if (e.target === document.getElementById('careers-success-popup')) {
-      closeCareersPopup();
-    }
   });
 </script>
 
