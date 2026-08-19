@@ -109,10 +109,10 @@ const data = entry!.data as {
 <!-- Success Popup -->
 <div id="success-popup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center;">
   <div style="background: white; padding: 2.5rem; border-radius: 8px; max-width: 480px; width: 90%; position: relative; text-align: center;">
-    <button onclick="closePopup()" style="position: absolute; top: 12px; right: 12px; background: none; border: none; font-size: 28px; cursor: pointer; color: #666; line-height: 1;">&times;</button>
+    <button id="popup-close-x" style="position: absolute; top: 12px; right: 12px; background: none; border: none; font-size: 28px; cursor: pointer; color: #666; line-height: 1;">&times;</button>
     <h3 style="color: #0b1f3a; margin-bottom: 1rem; font-size: 1.5rem;">Thank You!</h3>
     <p style="color: #333; margin-bottom: 1.5rem; line-height: 1.6;">Your message has been sent successfully. Our team will get back to you shortly.</p>
-    <button onclick="closePopup()" style="background: #0aa8db; color: white; padding: 0.75rem 2rem; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 1rem;">Close</button>
+    <button id="popup-close-btn" style="background: #0aa8db; color: white; padding: 0.75rem 2rem; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 1rem;">Close</button>
   </div>
 </div>
 
@@ -122,7 +122,30 @@ const data = entry!.data as {
   }
 
   const form = document.getElementById('contact-form');
+  const popupCloseX = document.getElementById('popup-close-x');
+  const popupCloseBtn = document.getElementById('popup-close-btn');
+  const successPopup = document.getElementById('success-popup');
+
+  // Close popup with X button
+  popupCloseX?.addEventListener('click', closePopup);
   
+  // Close popup with Close button
+  popupCloseBtn?.addEventListener('click', closePopup);
+
+  // Close popup when clicking outside
+  successPopup?.addEventListener('click', (e) => {
+    if (e.target === successPopup) {
+      closePopup();
+    }
+  });
+
+  // Close popup with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closePopup();
+    }
+  });
+
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
     
@@ -134,19 +157,12 @@ const data = entry!.data as {
       body: new URLSearchParams(formData).toString(),
     })
     .then(() => {
-      document.getElementById('success-popup').style.display = 'flex';
+      successPopup.style.display = 'flex';
       form.reset();
     })
     .catch(() => {
       alert('Something went wrong. Please try again or email us directly.');
     });
-  });
-
-  // Close popup when clicking outside
-  document.getElementById('success-popup').addEventListener('click', (e) => {
-    if (e.target === document.getElementById('success-popup')) {
-      closePopup();
-    }
   });
 </script>
 
@@ -162,8 +178,6 @@ const data = entry!.data as {
     gap: var(--space-4);
   }
 
-  /* Form fields stretch to fill the column (normal, desired), but the submit
-     button shouldn't — a button sizes to its text, not its container. */
   .contact__submit {
     align-self: flex-start;
   }
