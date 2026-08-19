@@ -34,13 +34,58 @@ button,
 textarea,
 select {
   font: inherit;
-  color: inherit;
+}
+
+/* Form controls need explicit colors - they don't inherit text color reliably
+   across browsers, and inheriting from a navy section would make text white
+   on white backgrounds. */
+input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+textarea,
+select {
+  color: var(--charcoal);
+  background-color: var(--white);
+  border: 1px solid var(--silver);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+}
+
+/* Placeholder text should be muted but readable */
+input::placeholder,
+textarea::placeholder {
+  color: #6b7280;
+  opacity: 1;
+}
+
+/* Checkbox and radio don't need text color overrides */
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;
+  padding: 0;
+  border: none;
+}
+
+/* File input doesn't need the full field styling */
+input[type="file"] {
+  padding: 0.5rem 0;
+  border: none;
+  background: transparent;
+}
+
+/* Focus state for form controls */
+input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--sky-text);
+  outline-offset: 0;
+  border-color: var(--sky-text);
 }
 
 button {
   cursor: pointer;
   background: none;
   border: none;
+  color: inherit;
 }
 
 a {
